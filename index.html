@@ -4,26 +4,39 @@
     <meta charset="utf-8">
     <title>GIG-UP | Vinexus</title>
     <style>
-      /* Cố định nền đen và căn giữa tuyệt đối */
       body { 
         padding: 0; margin: 0; background-color: black; 
         display: flex; justify-content: center; align-items: center; 
         height: 100vh; width: 100vw; overflow: hidden; 
       }
-      /* Ép Canvas về đúng kích thước Hà thiết kế trong Unity */
+      #unity-container {
+        position: relative;
+        /* Đây là "chiêu" quyết định: Khóa cứng tỷ lệ cửa sổ chơi game */
+        width: 1920px; 
+        height: 1080px;
+        transform-origin: center;
+      }
       #unity-canvas { 
-        width: 1920px !important; 
-        height: 1080px !important; 
-        /* Nếu màn hình nhỏ hơn 1920x1080, nó sẽ tự co lại nhưng không làm lệch UI */
-        max-width: 100%; 
-        max-height: 100%;
-        object-fit: contain; 
+        width: 100% !important; 
+        height: 100% !important;
         background: black;
       }
     </style>
+    <script>
+      // Hàm này giúp game tự co giãn theo màn hình người xem mà không làm lệch UI
+      function resize() {
+        var container = document.querySelector("#unity-container");
+        var scale = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
+        container.style.transform = "scale(" + scale + ")";
+      }
+      window.addEventListener('resize', resize);
+      window.addEventListener('load', resize);
+    </script>
   </head>
   <body>
-    <canvas id="unity-canvas" width=1920 height=1080 tabindex="-1"></canvas>
+    <div id="unity-container">
+      <canvas id="unity-canvas" width=1920 height=1080 tabindex="-1"></canvas>
+    </div>
     <script src="Build/GIG_UP_Build.loader.js"></script>
     <script>
       createUnityInstance(document.querySelector("#unity-canvas"), {
@@ -34,7 +47,7 @@
         companyName: "Vinexus",
         productName: "GIG-UP",
         productVersion: "1.0",
-      });
+      }).then(() => { resize(); });
     </script>
   </body>
 </html>
