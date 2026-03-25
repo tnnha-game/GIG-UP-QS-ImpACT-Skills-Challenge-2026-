@@ -2,21 +2,20 @@
 <html lang="en-us">
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>GIG-UP | Vinexus</title>
     <style>
-      /* Khóa nền đen và căn giữa tuyệt đối */
+      /* Cố định nền đen và căn giữa tuyệt đối */
       body { 
-        padding: 0; margin: 0; background: black; 
+        padding: 0; margin: 0; background-color: black; 
         display: flex; justify-content: center; align-items: center; 
         height: 100vh; width: 100vw; overflow: hidden; 
       }
-      /* Ép Canvas giữ đúng kích thước Hà xây dựng trong Unity */
+      /* Ép Canvas về đúng kích thước Hà thiết kế trong Unity */
       #unity-canvas { 
         width: 1920px !important; 
         height: 1080px !important; 
-        /* Tự động thu nhỏ nếu màn hình người xem quá bé, nhưng không làm lệch UI */
-        max-width: 100%;
+        /* Nếu màn hình nhỏ hơn 1920x1080, nó sẽ tự co lại nhưng không làm lệch UI */
+        max-width: 100%; 
         max-height: 100%;
         object-fit: contain; 
         background: black;
