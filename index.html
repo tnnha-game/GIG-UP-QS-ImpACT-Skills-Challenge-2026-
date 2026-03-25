@@ -1,24 +1,39 @@
-<style>
-      /* Nền đen toàn trang và căn giữa game */
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>GIG-UP | Vinexus</title>
+    <style>
+      /* Nền đen sang trọng cho đúng chất "Thrive" */
       body { 
-        padding: 0; 
-        margin: 0; 
-        background-color: black; 
-        display: flex; 
-        justify-content: center; 
-        align-items: center; 
-        height: 100vh; 
-        overflow: hidden; 
+        padding: 0; margin: 0; background-color: black; 
+        display: flex; justify-content: center; align-items: center; 
+        height: 100vh; overflow: hidden; 
       }
+      /* Giữ nguyên kích thước gốc để UI không bị vỡ */
       #unity-canvas { 
-        /* Giữ tỷ lệ vàng 16:9 nhưng thu nhỏ lại một chút để tạo khoảng thở */
-        width: 90vw !important; 
-        height: 50.625vw !important; 
-        max-height: 90vh !important;
-        max-width: 160vh !important;
+        width: 1280px !important; 
+        height: 720px !important; 
         background: black; 
-        border: 2px solid #333; /* Thêm viền xám nhẹ cho sang */
-        border-radius: 10px;    /* Bo góc nhẹ cho hiện đại */
-        box-shadow: 0px 10px 30px rgba(0,0,0,0.5);
+        box-shadow: 0px 0px 40px rgba(0,0,0,0.8);
+        border: 1px solid #333;
       }
     </style>
+  </head>
+  <body>
+    <canvas id="unity-canvas" width=1920 height=1080 tabindex="-1"></canvas>
+    <script src="Build/GIG_UP_Build.loader.js"></script>
+    <script>
+      createUnityInstance(document.querySelector("#unity-canvas"), {
+        dataUrl: "Build/GIG_UP_Build.data",
+        frameworkUrl: "Build/GIG_UP_Build.framework.js",
+        codeUrl: "Build/GIG_UP_Build.wasm",
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "Vinexus",
+        productName: "GIG-UP",
+        productVersion: "1.0",
+      });
+    </script>
+  </body>
+</html>
