@@ -4,34 +4,26 @@
     <meta charset="utf-8">
     <title>GIG-UP | Vinexus</title>
     <style>
-      body { 
-        padding: 0; margin: 0; background-color: black; 
-        display: flex; justify-content: center; align-items: center; 
-        height: 100vh; width: 100vw; overflow: hidden; 
+      /* Ép nền đen hoàn toàn và triệt tiêu mọi khoảng trắng */
+      body { padding: 0; margin: 0; background: #000; height: 100vh; width: 100vw; display: flex; justify-content: center; align-items: center; overflow: hidden; }
+      
+      /* Tạo một cái khung "vàng" đúng tỷ lệ Unity */
+      #unity-container { 
+        position: relative; 
+        width: 100%; 
+        height: 100%; 
+        max-width: 177.78vh; /* Đây là tỷ lệ 16:9 */
+        max-height: 56.25vw; 
+        aspect-ratio: 16 / 9;
+        box-shadow: 0 0 50px rgba(0,0,0,1);
       }
-      #unity-container {
-        position: relative;
-        /* Đây là "chiêu" quyết định: Khóa cứng tỷ lệ cửa sổ chơi game */
-        width: 1920px; 
-        height: 1080px;
-        transform-origin: center;
-      }
+
       #unity-canvas { 
         width: 100% !important; 
-        height: 100% !important;
-        background: black;
+        height: 100% !important; 
+        background: #000; 
       }
     </style>
-    <script>
-      // Hàm này giúp game tự co giãn theo màn hình người xem mà không làm lệch UI
-      function resize() {
-        var container = document.querySelector("#unity-container");
-        var scale = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
-        container.style.transform = "scale(" + scale + ")";
-      }
-      window.addEventListener('resize', resize);
-      window.addEventListener('load', resize);
-    </script>
   </head>
   <body>
     <div id="unity-container">
@@ -47,7 +39,7 @@
         companyName: "Vinexus",
         productName: "GIG-UP",
         productVersion: "1.0",
-      }).then(() => { resize(); });
+      });
     </script>
   </body>
 </html>
