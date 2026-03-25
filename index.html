@@ -2,27 +2,17 @@
 <html lang="en-us">
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>GIG-UP | Vinexus</title>
     <style>
-      /* Nền đen sang trọng cho đúng chất "Thrive" */
-      body { 
-        padding: 0; margin: 0; background-color: black; 
-        display: flex; justify-content: center; align-items: center; 
-        height: 100vh; overflow: hidden; 
-      }
-      /* Giữ nguyên kích thước gốc để UI không bị vỡ */
-      #unity-canvas { 
-        width: 1280px !important; 
-        height: 720px !important; 
-        background: black; 
-        box-shadow: 0px 0px 40px rgba(0,0,0,0.8);
-        border: 1px solid #333;
-      }
+      body { padding: 0; margin: 0; background: black; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; }
+      #unity-container { width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; }
+      #unity-canvas { background: black; width: 100%; height: 100%; max-width: 1920px; max-height: 1080px; aspect-ratio: 16 / 9; }
     </style>
   </head>
   <body>
-    <canvas id="unity-canvas" width=1920 height=1080 tabindex="-1"></canvas>
+    <div id="unity-container">
+      <canvas id="unity-canvas" width=1920 height=1080 tabindex="-1"></canvas>
+    </div>
     <script src="Build/GIG_UP_Build.loader.js"></script>
     <script>
       createUnityInstance(document.querySelector("#unity-canvas"), {
