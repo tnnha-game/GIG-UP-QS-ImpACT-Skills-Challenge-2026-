@@ -2,9 +2,10 @@
 <html lang="en-us">
   <head>
     <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>GIG-UP | Vinexus</title>
     <style>
-      /* Layout tổng thể căn giữa tuyệt đối */
+      /* Layout tràn màn hình */
       html, body {
         margin: 0 !important; padding: 0 !important;
         width: 100% !important; height: 100% !important;
@@ -24,16 +25,20 @@
         position: relative; 
       }
       
-      /* Canvas: Rộng vừa đủ (94vw) để không bị mất hình */
+      /* Canvas: PHIÊN BẢN FULL TRÀN VIỀN & NO BLUE OUTLINE */
       #unity-canvas { 
-        width: 94vw !important; 
-        height: auto !important;
-        max-height: 94vh !important; 
-        aspect-ratio: 16 / 9 !important; 
+        /* Ép rộng hết cỡ màn hình */
+        width: 100vw !important; 
+        height: 100vh !important; 
+        
+        /* Giữ tỉ lệ 16:9 nhưng dùng cover để lấp đầy khoảng trống */
         object-fit: contain !important; 
         background: #231f20;
         z-index: 1;
-        box-shadow: 0 0 40px rgba(0,0,0,0.6);
+
+        /* TRIỆT TIÊU VIỀN XANH KHI CLICK */
+        outline: none !important;
+        -webkit-tap-highlight-color: rgba(0,0,0,0);
       }
       
       /* Chữ LOADING... cưỡng chế nằm trên cùng */
@@ -55,7 +60,6 @@
   <body>
     <div id="unity-container">
       <div id="loading-text">LOADING...</div>
-      
       <canvas id="unity-canvas" tabindex="-1"></canvas>
     </div>
 
@@ -73,7 +77,6 @@
         productName: "GIG-UP",
         productVersion: "1.0",
       }).then((unityInstance) => {
-        // Ẩn chữ LOADING... khi game đã sẵn sàng
         loadingText.style.display = "none"; 
       }).catch((err) => {
         console.error(err);
