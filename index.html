@@ -5,7 +5,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>GIG-UP | Vinexus</title>
     <style>
-      /* Căn giữa tuyệt đối và dọn sạch viền */
       html, body {
         margin: 0 !important; padding: 0 !important;
         width: 100% !important; height: 100% !important;
@@ -24,21 +23,19 @@
         position: relative; 
       }
       
-      /* Canvas tự co giãn - PHIÊN BẢN NỚI RỘNG 2 BÊN */
+      /* PHIÊN BẢN NỚI RỘNG EXTRA WIDE */
       #unity-canvas { 
-        /* Tăng max-width lên 105% để nới rộng ra viền màn hình một chút */
-        max-width: 105% !important; 
-        max-height: 100% !important; 
+        /* Đẩy lên 115% để game chiếm nhiều diện tích ngang hơn */
+        max-width: 115% !important; 
+        max-height: 98% !important; /* Giữ lại 2% để không bị chạm sát mép trên dưới quá */
         
-        /* Chỉnh lại tỉ lệ 16:9 nhưngobject-fit sẽ lo phần co giãn */
         aspect-ratio: 16 / 9; 
         
-        /* TUYỆT CHIÊU: fill - Ép hình ảnh lấp đầy khung mới (có thể bị giãn nhẹ art) */
+        /* Dùng 'fill' để ép giãn chiều ngang ra theo ý Hà */
         object-fit: fill; 
         background: #231f20;
       }
       
-      /* Chỉ hiện chữ LOADING... tối giản */
       #loading-text {
         position: absolute; 
         color: #ffffff; 
