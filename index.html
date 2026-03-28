@@ -4,10 +4,11 @@
     <meta charset="utf-8">
     <title>GIG-UP | Vinexus</title>
     <style>
-      /* Triệt tiêu viền xanh và reset mặc định */
+      /* CHIÊU CUỐI: TRIỆT TIÊU TOÀN BỘ OUTLINE TRÊN MỌI THẺ */
       * {
         outline: none !important;
-        -webkit-tap-highlight-color: rgba(0,0,0,0);
+        -webkit-tap-highlight-color: rgba(0,0,0,0) !important;
+        box-shadow: none !important;
       }
 
       html, body {
@@ -27,24 +28,25 @@
         justify-content: center !important; 
         align-items: center !important; 
         position: relative;
-        background-color: #000;
+        background: #000 !important;
       }
       
-      /* Canvas: TỰ ĐỘNG CÂN BẰNG - KHÔNG LỆCH HÌNH */
+      /* Canvas: Full nhưng không bao giờ có viền */
       #unity-canvas { 
-        /* Rộng hết cỡ ngang */
         width: 100% !important; 
-        /* Cao tự nhảy theo tỉ lệ 16:9 nhưng không vượt quá màn hình */
         height: auto !important;
         max-width: 100% !important;
         max-height: 100% !important;
-        
         aspect-ratio: 16 / 9 !important; 
         object-fit: contain !important; 
         z-index: 1;
+        
+        /* Chặn mọi loại viền có thể xuất hiện */
         border: none !important;
+        outline: 0 !important;
       }
-      
+
+      /* Chữ LOADING... */
       #loading-text {
         position: absolute; 
         color: #ffffff; 
@@ -54,7 +56,6 @@
         animation: blink 2s infinite;
         z-index: 999; 
         pointer-events: none;
-        text-transform: uppercase;
       }
 
       @keyframes blink { 0% { opacity: 0.1; } 50% { opacity: 0.8; } 100% { opacity: 0.1; } }
@@ -80,11 +81,15 @@
         productName: "GIG-UP",
         productVersion: "1.0",
       }).then((unityInstance) => {
-        loadingText.style.display = "none"; 
-        canvas.style.outline = "none";
+        loadingText.style.display = "none";
+        // Ép thêm một lần nữa bằng JS sau khi load xong
+        canvas.blur(); 
       }).catch((err) => {
         console.error(err);
       });
+
+      // Lệnh chặn focus gây viền xanh khi click
+      canvas.addEventListener('mousedown', function(e) { e.preventDefault(); }, false);
     </script>
   </body>
 </html>
