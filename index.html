@@ -15,8 +15,30 @@
         justify-content: center !important;
         align-items: center !important;
       }
-      #unity-container { width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; position: relative; }
-      #unity-canvas { max-width: 100%; max-height: 100%; aspect-ratio: 16 / 9; object-fit: contain; }
+      #unity-container { 
+        width: 100vw; 
+        height: 100vh; 
+        display: flex; 
+        justify-content: center; 
+        align-items: center; 
+        position: relative; 
+      }
+      
+      /* Canvas tự co giãn - ĐÃ NỚI RỘNG RA 2 BÊN */
+      #unity-canvas { 
+        /* Tăng max-width lên 105% để nới rộng ra viền màn hình một chút */
+        max-width: 105% !important; 
+        max-height: 100% !important; 
+        
+        /* Chỉnh lại tỉ lệ 16:9 nhưng object-fit sẽ lo phần co giãn */
+        aspect-ratio: 16 / 9; 
+        
+        /* Sử dụng 'cover' thay vì 'contain' để hình ảnh lấp đầy khung mới */
+        /* Lưu ý: 'cover' có thể làm mất một xíu art ở trên/dưới hoặc trái/phải */
+        /* Nếu Hà thấy art bị mất nhiều quá, hãy đổi lại thành 'contain' nhé */
+        object-fit: contain; 
+        background: #231f20;
+      }
       
       /* Chỉ hiện chữ LOADING... tối giản */
       #loading-text {
