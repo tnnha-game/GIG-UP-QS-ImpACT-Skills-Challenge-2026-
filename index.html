@@ -2,8 +2,10 @@
 <html lang="en-us">
   <head>
     <meta charset="utf-8">
-    <title>GIG-UP | Vinexus </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>GIG-UP | Vinexus</title>
     <style>
+      /* Căn giữa tuyệt đối và dọn sạch viền */
       html, body {
         margin: 0 !important; padding: 0 !important;
         width: 100% !important; height: 100% !important;
@@ -16,17 +18,21 @@
       #unity-container { width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; position: relative; }
       #unity-canvas { max-width: 100%; max-height: 100%; aspect-ratio: 16 / 9; object-fit: contain; }
       
-      /* Hiệu ứng chữ Loading */
+      /* Chỉ hiện chữ LOADING... tối giản */
       #loading-text {
-        position: absolute; color: white; font-family: sans-serif;
-        font-size: 1.2rem; letter-spacing: 2px; animate: blink 1.5s infinite;
+        position: absolute; 
+        color: #ffffff; 
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 14px; 
+        letter-spacing: 4px; 
+        animation: blink 2s infinite;
       }
-      @keyframes blink { 0% { opacity: 0.2; } 50% { opacity: 1; } 100% { opacity: 0.2; } }
+      @keyframes blink { 0% { opacity: 0.1; } 50% { opacity: 0.8; } 100% { opacity: 0.1; } }
     </style>
   </head>
   <body>
     <div id="unity-container">
-      <div id="loading-text">LOADING GIG-UP ...</div>
+      <div id="loading-text">LOADING...</div>
       <canvas id="unity-canvas" tabindex="-1"></canvas>
     </div>
 
@@ -44,9 +50,9 @@
         productName: "GIG-UP",
         productVersion: "1.0",
       }).then((unityInstance) => {
-        loadingText.style.display = "none"; // Load xong thì ẩn chữ đi
+        loadingText.style.display = "none"; 
       }).catch((message) => {
-        alert("Lỗi rồi Hà ơi: " + message);
+        console.error(message);
       });
     </script>
   </body>
