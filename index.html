@@ -1,76 +1,43 @@
-<!DOCTYPE html>
-<html lang="en-us">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>GIG-UP | Vinexus</title>
-    <style>
-      html, body {
-        margin: 0 !important; padding: 0 !important;
-        width: 100% !important; height: 100% !important;
-        background-color: #000 !important;
-        overflow: hidden !important;
-        display: flex !important;
-        justify-content: center !important;
-        align-items: center !important;
-      }
-      #unity-container { 
-        width: 100vw; 
-        height: 100vh; 
-        display: flex; 
-        justify-content: center; 
-        align-items: center; 
-        position: relative; 
-      }
-      
-      /* PHIÊN BẢN NỚI RỘNG EXTRA WIDE */
-      #unity-canvas { 
-        /* Đẩy lên 115% để game chiếm nhiều diện tích ngang hơn */
-        max-width: 115% !important; 
-        max-height: 98% !important; /* Giữ lại 2% để không bị chạm sát mép trên dưới quá */
-        
-        aspect-ratio: 16 / 9; 
-        
-        /* Dùng 'fill' để ép giãn chiều ngang ra theo ý Hà */
-        object-fit: fill; 
-        background: #231f20;
-      }
-      
-      #loading-text {
-        position: absolute; 
-        color: #ffffff; 
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        font-size: 14px; 
-        letter-spacing: 4px; 
-        animation: blink 2s infinite;
-      }
-      @keyframes blink { 0% { opacity: 0.1; } 50% { opacity: 0.8; } 100% { opacity: 0.1; } }
-    </style>
-  </head>
-  <body>
-    <div id="unity-container">
-      <div id="loading-text">LOADING...</div>
-      <canvas id="unity-canvas" tabindex="-1"></canvas>
-    </div>
-
-    <script src="Build/GIG_UP_Vinexus_Build.loader.js"></script>
-    <script>
-      var canvas = document.querySelector("#unity-canvas");
-      var loadingText = document.querySelector("#loading-text");
-
-      createUnityInstance(canvas, {
-        dataUrl: "Build/GIG_UP_Vinexus_Build.data",
-        frameworkUrl: "Build/GIG_UP_Vinexus_Build.framework.js",
-        codeUrl: "Build/GIG_UP_Vinexus_Build.wasm",
-        streamingAssetsUrl: "StreamingAssets",
-        companyName: "VinUniversity",
-        productName: "GIG-UP",
-        productVersion: "1.0",
-      }).then((unityInstance) => {
-        loadingText.style.display = "none"; 
-      }).catch((message) => {
-        console.error(message);
-      });
-    </script>
-  </body>
-</html>
+<style>
+  html, body {
+    margin: 0 !important; padding: 0 !important;
+    width: 100% !important; height: 100% !important;
+    background-color: #000 !important;
+    overflow: hidden !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+  #unity-container { 
+    width: 100vw !important; 
+    height: 100vh !important; 
+    display: flex !important; 
+    justify-content: center !important; 
+    align-items: center !important; 
+  }
+  
+  /* ĐOẠN CODE QUYẾT ĐỊNH RỘNG MÀN HÌNH */
+  #unity-canvas { 
+    /* Ép chiều ngang ra sát mép hơn - Có thể tăng số 95 lên 100 nếu muốn tràn viền */
+    width: 95vw !important; 
+    height: auto !important;
+    
+    /* Duy trì tỉ lệ khung hình để không bị méo nhân vật quá nhiều */
+    aspect-ratio: 16 / 9 !important; 
+    
+    /* Ép kiểu hiển thị */
+    object-fit: contain !important; 
+    background: #231f20;
+  }
+  
+  #loading-text {
+    position: absolute; 
+    color: #ffffff; 
+    font-family: sans-serif;
+    font-size: 14px; 
+    letter-spacing: 4px; 
+    animation: blink 2s infinite;
+    z-index: 10;
+  }
+  @keyframes blink { 0% { opacity: 0.1; } 50% { opacity: 0.8; } 100% { opacity: 0.1; } }
+</style>
