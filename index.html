@@ -24,19 +24,17 @@
         position: relative; 
       }
       
-      /* Canvas tự co giãn - ĐÃ NỚI RỘNG RA 2 BÊN */
+      /* Canvas tự co giãn - PHIÊN BẢN NỚI RỘNG 2 BÊN */
       #unity-canvas { 
         /* Tăng max-width lên 105% để nới rộng ra viền màn hình một chút */
         max-width: 105% !important; 
         max-height: 100% !important; 
         
-        /* Chỉnh lại tỉ lệ 16:9 nhưng object-fit sẽ lo phần co giãn */
+        /* Chỉnh lại tỉ lệ 16:9 nhưngobject-fit sẽ lo phần co giãn */
         aspect-ratio: 16 / 9; 
         
-        /* Sử dụng 'cover' thay vì 'contain' để hình ảnh lấp đầy khung mới */
-        /* Lưu ý: 'cover' có thể làm mất một xíu art ở trên/dưới hoặc trái/phải */
-        /* Nếu Hà thấy art bị mất nhiều quá, hãy đổi lại thành 'contain' nhé */
-        object-fit: contain; 
+        /* TUYỆT CHIÊU: fill - Ép hình ảnh lấp đầy khung mới (có thể bị giãn nhẹ art) */
+        object-fit: fill; 
         background: #231f20;
       }
       
