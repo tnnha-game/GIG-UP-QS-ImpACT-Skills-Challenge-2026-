@@ -1,53 +1,83 @@
-<style>
-  /* Căn giữa tuyệt đối và khóa scroll */
-  html, body {
-    margin: 0 !important; padding: 0 !important;
-    width: 100% !important; height: 100% !important;
-    background-color: #000 !important;
-    overflow: hidden !important;
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-  }
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <title>GIG-UP | Vinexus</title>
+    <style>
+      /* Layout tổng thể căn giữa tuyệt đối */
+      html, body {
+        margin: 0 !important; padding: 0 !important;
+        width: 100% !important; height: 100% !important;
+        background-color: #000 !important;
+        overflow: hidden !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+      }
 
-  /* Container bao quanh game */
-  #unity-container { 
-    width: 100vw !important; 
-    height: 100vh !important; 
-    display: flex !important; 
-    justify-content: center !important; 
-    align-items: center !important; 
-    position: relative; 
-  }
-  
-  /* Canvas game - BẢN THU NHỎ "PERFECT FIT" */
-  #unity-canvas { 
-    /* Giảm chiều rộng tối đa xuống còn 92vw để tạo khoảng trống 2 bên */
-    width: 92vw !important; 
-    
-    /* QUAN TRỌNG: Giới hạn chiều cao nghiêm ngặt hơn (92vh) */
-    /* để ép game co lại trên màn hình Macbook */
-    height: auto !important;
-    max-height: 92vh !important; 
+      #unity-container { 
+        width: 100vw !important; 
+        height: 100vh !important; 
+        display: flex !important; 
+        justify-content: center !important; 
+        align-items: center !important; 
+        position: relative; 
+      }
+      
+      /* Canvas: Rộng vừa đủ (94vw) để không bị mất hình */
+      #unity-canvas { 
+        width: 94vw !important; 
+        height: auto !important;
+        max-height: 94vh !important; 
+        aspect-ratio: 16 / 9 !important; 
+        object-fit: contain !important; 
+        background: #231f20;
+        z-index: 1;
+        box-shadow: 0 0 40px rgba(0,0,0,0.6);
+      }
+      
+      /* Chữ LOADING... cưỡng chế nằm trên cùng */
+      #loading-text {
+        position: absolute; 
+        color: #ffffff; 
+        font-family: 'Segoe UI', Tahoma, sans-serif;
+        font-size: 16px; 
+        letter-spacing: 5px; 
+        animation: blink 2s infinite;
+        z-index: 999; 
+        pointer-events: none;
+        text-transform: uppercase;
+      }
 
-    /* Giữ tỉ lệ chuẩn để không bị méo */
-    aspect-ratio: 16 / 9 !important; 
-    object-fit: contain !important; 
-    background: #231f20;
-    
-    /* Thêm chút hiệu ứng nổi khối cho xịn */
-    box-shadow: 0 0 30px rgba(0,0,0,0.5); 
-  }
-  
-  /* Chữ LOADING... tối giản */
-  #loading-text {
-    position: absolute; 
-    color: #ffffff; 
-    font-family: 'Segoe UI', sans-serif;
-    font-size: 14px; 
-    letter-spacing: 4px; 
-    animation: blink 2s infinite;
-    z-index: 10;
-  }
-  @keyframes blink { 0% { opacity: 0.1; } 50% { opacity: 0.8; } 100% { opacity: 0.1; } }
-</style>
+      @keyframes blink { 0% { opacity: 0.1; } 50% { opacity: 0.8; } 100% { opacity: 0.1; } }
+    </style>
+  </head>
+  <body>
+    <div id="unity-container">
+      <div id="loading-text">LOADING...</div>
+      
+      <canvas id="unity-canvas" tabindex="-1"></canvas>
+    </div>
+
+    <script src="Build/GIG_UP_Vinexus_Build.loader.js"></script>
+    <script>
+      var canvas = document.querySelector("#unity-canvas");
+      var loadingText = document.querySelector("#loading-text");
+
+      createUnityInstance(canvas, {
+        dataUrl: "Build/GIG_UP_Vinexus_Build.data",
+        frameworkUrl: "Build/GIG_UP_Vinexus_Build.framework.js",
+        codeUrl: "Build/GIG_UP_Vinexus_Build.wasm",
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "VinUniversity",
+        productName: "GIG-UP",
+        productVersion: "1.0",
+      }).then((unityInstance) => {
+        // Ẩn chữ LOADING... khi game đã sẵn sàng
+        loadingText.style.display = "none"; 
+      }).catch((err) => {
+        console.error(err);
+      });
+    </script>
+  </body>
+</html>
