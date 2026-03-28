@@ -1,4 +1,4 @@
-# GIG-UP: A Systems-Based Simulation Game
+# GIG-UP: A 2D Systems-Based Simulation Game
 
 ## 🚀 Overview
 GIG-UP is a Unity-based game designed to educate young people and young workers on the precarious nature of the Gig Economy and experience  the rapid evolution of AI. Players must navigate a 90-day cycle, balancing high-stakes contracts with financial management, skill improvement, and protecting physical and mental health. 
