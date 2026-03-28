@@ -3,11 +3,6 @@
 ## 🚀 Overview
 GIG-UP is a Unity-based game designed to educate young people and young workers on the precarious nature of the Gig Economy. Players must navigate a 90-day cycle, balancing high-stakes contracts with financial management, skill improvement, and physical and mental health.
 
-## 🎮 How to Play
-1. Download the latest release from the ... section.
-2. Run `GIG-UP.exe`.
-3. Survive 90 days and aim for the **Elite Success** ending!
-
 ## 👥 The Team
 * **Nguyen Ngan Ha Tran** - Project Lead & UI/UX Designer & Technical Developer
 * **Trung Dung Do** - Researcher & Storyteller
