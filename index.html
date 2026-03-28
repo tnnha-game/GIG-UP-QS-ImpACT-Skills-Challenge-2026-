@@ -2,10 +2,14 @@
 <html lang="en-us">
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>GIG-UP | Vinexus</title>
     <style>
-      /* Layout tràn màn hình */
+      /* Triệt tiêu viền xanh và reset mặc định */
+      * {
+        outline: none !important;
+        -webkit-tap-highlight-color: rgba(0,0,0,0);
+      }
+
       html, body {
         margin: 0 !important; padding: 0 !important;
         width: 100% !important; height: 100% !important;
@@ -22,30 +26,29 @@
         display: flex !important; 
         justify-content: center !important; 
         align-items: center !important; 
-        position: relative; 
+        position: relative;
+        background-color: #000;
       }
       
-      /* Canvas: PHIÊN BẢN FULL TRÀN VIỀN & NO BLUE OUTLINE */
+      /* Canvas: TỰ ĐỘNG CÂN BẰNG - KHÔNG LỆCH HÌNH */
       #unity-canvas { 
-        /* Ép rộng hết cỡ màn hình */
-        width: 100vw !important; 
-        height: 100vh !important; 
+        /* Rộng hết cỡ ngang */
+        width: 100% !important; 
+        /* Cao tự nhảy theo tỉ lệ 16:9 nhưng không vượt quá màn hình */
+        height: auto !important;
+        max-width: 100% !important;
+        max-height: 100% !important;
         
-        /* Giữ tỉ lệ 16:9 nhưng dùng cover để lấp đầy khoảng trống */
+        aspect-ratio: 16 / 9 !important; 
         object-fit: contain !important; 
-        background: #231f20;
         z-index: 1;
-
-        /* TRIỆT TIÊU VIỀN XANH KHI CLICK */
-        outline: none !important;
-        -webkit-tap-highlight-color: rgba(0,0,0,0);
+        border: none !important;
       }
       
-      /* Chữ LOADING... cưỡng chế nằm trên cùng */
       #loading-text {
         position: absolute; 
         color: #ffffff; 
-        font-family: 'Segoe UI', Tahoma, sans-serif;
+        font-family: 'Segoe UI', sans-serif;
         font-size: 16px; 
         letter-spacing: 5px; 
         animation: blink 2s infinite;
@@ -60,7 +63,7 @@
   <body>
     <div id="unity-container">
       <div id="loading-text">LOADING...</div>
-      <canvas id="unity-canvas" tabindex="-1"></canvas>
+      <canvas id="unity-canvas"></canvas>
     </div>
 
     <script src="Build/GIG_UP_Vinexus_Build.loader.js"></script>
@@ -78,6 +81,7 @@
         productVersion: "1.0",
       }).then((unityInstance) => {
         loadingText.style.display = "none"; 
+        canvas.style.outline = "none";
       }).catch((err) => {
         console.error(err);
       });
