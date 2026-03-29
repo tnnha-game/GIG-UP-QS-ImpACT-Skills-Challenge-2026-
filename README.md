@@ -13,13 +13,12 @@ Platform: WebGL (optimized for 16:9 displays)
 Deployment: GitHub Pages
 
 ## 📂 How to Run
-Access the game via the live link: https://tnnha-game.github.io/GIG-UP-QS-ImpACT-Skills-Challenge-2026-/ 
+Access the game via the live link: https://tnnha-game.github.io/GIG-UP-QS-ImpACT-Skills-Challenge-2026-/ (Github pages)
+                                or https://tnnha-game.itch.io/gig-up-by-vinexus (itch.io)
 
 Wait for the LOADING... screen to finish.
 
 Use your mouse to interact with the UI elements.
-
-Note: Best experienced on Chrome/Safari with a 16:9 aspect ratio.
 
 ## 👥 The Team: Vinexus (VinUniversity - Vietnam)
 * **Nguyen Ngan Ha Tran** - Project Lead & UI/UX Designer & Technical Developer (25ha.tnn@vinuni.edu.vn)
