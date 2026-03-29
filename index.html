@@ -5,56 +5,41 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>GIG-UP | Vinexus</title>
     <style>
-      /* 1. PHONG ẤN VIỀN XANH CẤP ĐỘ HỆ THỐNG */
+      /* KHÓA CHẾ ĐỘ HIỆN VIỀN TRÊN TOÀN TRANG */
       * {
         outline: none !important;
         box-shadow: none !important;
-        -webkit-tap-highlight-color: transparent !important;
-        -webkit-user-select: none;
-        user-select: none;
+        -webkit-tap-highlight-color: rgba(0,0,0,0) !important;
       }
 
       html, body {
         margin: 0 !important; padding: 0 !important;
         width: 100% !important; height: 100% !important;
         background-color: #000 !important;
-        overflow: hidden !important;
         display: flex !important;
         justify-content: center !important;
         align-items: center !important;
+        overflow: hidden !important;
       }
 
       #unity-container { 
         width: 100vw; height: 100vh; 
+        display: flex; justify-content: center; align-items: center; 
         position: relative; 
-        display: flex; justify-content: center; align-items: center;
-        background-color: #000;
       }
 
-      /* 2. CĂN GIỮA TUYỆT ĐỐI & CHỐNG LỆCH */
       #unity-canvas { 
-        width: 98vw !important; 
+        /* TỰ ĐỘNG CO GIÃN LINH HOẠT THEO THIẾT BỊ */
+        width: 100% !important; 
         height: auto !important;
-        max-height: 98vh !important;
+        max-width: 98vw; 
+        max-height: 98vh; 
         aspect-ratio: 16 / 9; 
         object-fit: contain; 
-        background: #231f20;
         
-        /* Chặn mọi loại border/outline có thể có */
+        background: #231f20;
         border: none !important;
         outline: none !important;
-        outline: 0 !important;
-      }
-
-      /* CHẶN VIỀN XANH KHI CLICK/ACTIVE TRÊN CHROME & SAFARI */
-      #unity-canvas:focus, 
-      #unity-canvas:active, 
-      #unity-canvas:focus-visible,
-      canvas:focus {
-        outline: none !important;
-        outline: 0 !important;
-        box-shadow: none !important;
-        border: none !important;
       }
       
       #loading-text {
@@ -88,24 +73,15 @@
         productVersion: "1.0",
       }).then((unityInstance) => {
         loadingText.style.display = "none";
-        // Đảm bảo không có tiêu điểm vào canvas sau khi load
-        canvas.blur();
-        window.focus();
+        canvas.blur(); // Xóa focus ngay khi load xong
       }).catch((message) => {
         console.error(message);
       });
 
-      // 3. CHIÊU CUỐI: CHẶN HÀNH VI FOCUS MẶC ĐỊNH KHI CLICK
-      canvas.addEventListener('mousedown', function(e) {
-        e.preventDefault(); // Ngăn trình duyệt đánh dấu focus ring
-        window.focus();
-        canvas.blur();
+      // Diệt viền xanh triệt để khi click chuột
+      canvas.addEventListener('mousedown', function(e) { 
+        setTimeout(function() { window.focus(); canvas.blur(); }, 10);
       }, false);
-
-      // Chặn luôn cho cảm ứng điện thoại
-      canvas.addEventListener('touchstart', function(e) {
-        canvas.blur();
-      }, {passive: true});
     </script>
   </body>
 </html>
