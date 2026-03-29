@@ -5,23 +5,25 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>GIG-UP | Vinexus</title>
     <style>
-      /* Reset mặc định của trình duyệt */
+      /* 1. TRIỆT TIÊU VIỀN XANH TRÊN TẤT CẢ PHẦN TỬ */
+      * {
+        outline: none !important;
+        -webkit-tap-highlight-color: rgba(0,0,0,0) !important;
+      }
+
       html, body {
         margin: 0 !important;
         padding: 0 !important;
         width: 100% !important;
         height: 100% !important;
         background-color: #000 !important;
-        overflow: hidden !important; /* Chặn thanh cuộn */
-        
-        /* CĂN GIỮA TUYỆT ĐỐI THEO CẢ 2 CHIỀU */
+        overflow: hidden !important;
         display: flex !important;
-        justify-content: center !important; /* Căn giữa ngang */
-        align-items: center !important;     /* Căn giữa dọc */
+        justify-content: center !important;
+        align-items: center !important;
       }
 
       #unity-container { 
-        /* Chiếm tối đa không gian có thể của trình duyệt */
         width: 100vw; 
         height: 100vh; 
         display: flex; 
@@ -31,27 +33,24 @@
       }
 
       #unity-canvas { 
-        /* CHIÊU CUỐI ĐỂ TO HẾT CỠ MÀ KHÔNG LỆCH */
-        
-        /* 1. Ép chiều rộng chiếm 98% màn hình, chừa 1% biên an toàn */
+        /* 2. HIỂN THỊ TO & CÂN ĐỐI */
         width: 98vw !important; 
-        
-        /* 2. Chiều cao tự nhảy theo tỉ lệ 16:9 của Unity */
         height: auto !important; 
-        
-        /* 3. KHÓA TỈ LỆ: Đảm bảo Alex không bị méo hình */
         aspect-ratio: 16 / 9 !important; 
-        
-        /* 4. CHỐNG TRÀN DỌC: Nếu màn hình quá lùn, game tự co lại */
         max-height: 98vh !important; 
-        
-        /* 5. CĂN GIỮA NỘI DUNG: Giúp hình ảnh bên trong canvas đẹp nhất */
         object-fit: contain !important; 
-
         background: #231f20;
-        /* Triệt tiêu viền xanh khi click trên Mac */
-        outline: none !important;
+
+        /* 3. KHÓA VIỀN XANH CỨNG */
         border: none !important;
+        outline: none !important;
+        box-shadow: none !important;
+      }
+
+      /* Chặn viền xanh khi click/active trên Chrome Mac */
+      #unity-canvas:focus, #unity-canvas:active, #unity-canvas:focus-visible {
+        outline: none !important;
+        box-shadow: none !important;
       }
       
       #loading-text {
@@ -62,7 +61,7 @@
         letter-spacing: 4px; 
         animation: blink 2s infinite;
         z-index: 10;
-        pointer-events: none; /* Không cản click chuột */
+        pointer-events: none;
       }
       @keyframes blink { 0% { opacity: 0.1; } 50% { opacity: 0.8; } 100% { opacity: 0.1; } }
     </style>
@@ -88,15 +87,17 @@
         productVersion: "1.0",
       }).then((unityInstance) => {
         loadingText.style.display = "none";
-        // Khóa focus sau khi load xong
-        canvas.blur();
+        canvas.blur(); // Gỡ tiêu điểm ngay khi game sẵn sàng
       }).catch((message) => {
         console.error(message);
       });
 
-      // Lệnh chặn viền xanh khi click chơi game
-      canvas.addEventListener('mousedown', function() {
-        setTimeout(function() { window.focus(); canvas.blur(); }, 10);
+      // Trick cuối: Ngay khi nhấn chuột, ép trình duyệt không tập trung vào canvas
+      canvas.addEventListener('mousedown', function(e) {
+        setTimeout(function() { 
+            window.focus(); 
+            canvas.blur(); 
+        }, 10);
       });
     </script>
   </body>
