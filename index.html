@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>GIG-UP | Vinexus</title>
     <style>
-      /* KHÓA CHẾ ĐỘ HIỆN VIỀN TRÊN TOÀN TRANG */
+      /* 1. TRIỆT TIÊU VIỀN XANH TRÊN MỌI TRÌNH DUYỆT */
       * {
         outline: none !important;
         box-shadow: none !important;
@@ -13,9 +13,12 @@
       }
 
       html, body {
-        margin: 0 !important; padding: 0 !important;
-        width: 100% !important; height: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
         background-color: #000 !important;
+        /* CĂN GIỮA TUYỆT ĐỐI */
         display: flex !important;
         justify-content: center !important;
         align-items: center !important;
@@ -23,31 +26,40 @@
       }
 
       #unity-container { 
-        width: 100vw; height: 100vh; 
-        display: flex; justify-content: center; align-items: center; 
+        width: 100vw; 
+        height: 100vh; 
+        display: flex; 
+        justify-content: center; 
+        align-items: center; 
         position: relative; 
       }
 
       #unity-canvas { 
-        /* TỰ ĐỘNG CO GIÃN LINH HOẠT THEO THIẾT BỊ */
-        width: 100% !important; 
-        height: auto !important;
-        max-width: 98vw; 
-        max-height: 98vh; 
+        /* TỐI ƯU HIỂN THỊ LINH HOẠT THEO SIZE MÀN HÌNH */
+        max-width: 98%; 
+        max-height: 98%; 
         aspect-ratio: 16 / 9; 
         object-fit: contain; 
-        
         background: #231f20;
         border: none !important;
+        cursor: pointer;
+      }
+
+      /* CHẶN VIỀN XANH KHI CLICK/FOCUS TRÊN MAC & CHROME */
+      #unity-canvas:focus, #unity-canvas:active, #unity-canvas:focus-visible {
         outline: none !important;
+        box-shadow: none !important;
       }
       
       #loading-text {
-        position: absolute; color: #ffffff; 
+        position: absolute; 
+        color: #ffffff; 
         font-family: 'Segoe UI', Tahoma, sans-serif;
-        font-size: 14px; letter-spacing: 4px; 
+        font-size: 14px; 
+        letter-spacing: 4px; 
         animation: blink 2s infinite;
-        z-index: 10; pointer-events: none;
+        z-index: 10;
+        pointer-events: none;
       }
       @keyframes blink { 0% { opacity: 0.1; } 50% { opacity: 0.8; } 100% { opacity: 0.1; } }
     </style>
@@ -73,15 +85,24 @@
         productVersion: "1.0",
       }).then((unityInstance) => {
         loadingText.style.display = "none";
-        canvas.blur(); // Xóa focus ngay khi load xong
+        // Gỡ focus ngay khi game load xong
+        canvas.blur();
+        window.focus();
       }).catch((message) => {
         console.error(message);
       });
 
-      // Diệt viền xanh triệt để khi click chuột
+      /* TRICK CUỐI: CHẶN VIỀN XANH KHI CLICK CHUỘT */
       canvas.addEventListener('mousedown', function(e) { 
-        setTimeout(function() { window.focus(); canvas.blur(); }, 10);
+        // Ép trình duyệt không focus vào canvas để không hiện viền
+        setTimeout(function() { 
+          window.focus(); 
+          canvas.blur(); 
+        }, 10);
       }, false);
+      
+      // Chặn menu chuột phải cho chuyên nghiệp
+      canvas.addEventListener('contextmenu', function(e) { e.preventDefault(); }, false);
     </script>
   </body>
 </html>
