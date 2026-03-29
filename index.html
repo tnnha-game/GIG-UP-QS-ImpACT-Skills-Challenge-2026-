@@ -5,11 +5,13 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>GIG-UP | Vinexus</title>
     <style>
-      /* 1. TRIỆT TIÊU TOÀN BỘ VIỀN TRÊN MỌI TRÌNH DUYỆT */
+      /* 1. PHONG ẤN VIỀN XANH CẤP ĐỘ HỆ THỐNG */
       * {
         outline: none !important;
         box-shadow: none !important;
-        -webkit-tap-highlight-color: rgba(0,0,0,0) !important;
+        -webkit-tap-highlight-color: transparent !important;
+        -webkit-user-select: none;
+        user-select: none;
       }
 
       html, body {
@@ -24,28 +26,27 @@
 
       #unity-container { 
         width: 100vw; height: 100vh; 
-        display: flex; justify-content: center; align-items: center; 
         position: relative; 
+        display: flex; justify-content: center; align-items: center;
+        background-color: #000;
       }
 
+      /* 2. CĂN GIỮA TUYỆT ĐỐI & CHỐNG LỆCH */
       #unity-canvas { 
-        /* 2. ÉP SIZE TO & CHÍNH GIỮA */
-        width: 100% !important; 
-        height: 100% !important;
-        max-width: 98vw; 
-        max-height: 98vh; 
+        width: 98vw !important; 
+        height: auto !important;
+        max-height: 98vh !important;
         aspect-ratio: 16 / 9; 
         object-fit: contain; 
         background: #231f20;
         
-        /* 3. PHONG ẤN VIỀN XANH (CỰC MẠNH) */
+        /* Chặn mọi loại border/outline có thể có */
         border: none !important;
-        outline: 0 !important;
         outline: none !important;
-        -webkit-appearance: none;
+        outline: 0 !important;
       }
 
-      /* Chặn đứng cơ chế Focus-visible của Chrome Mac */
+      /* CHẶN VIỀN XANH KHI CLICK/ACTIVE TRÊN CHROME & SAFARI */
       #unity-canvas:focus, 
       #unity-canvas:active, 
       #unity-canvas:focus-visible,
@@ -87,25 +88,24 @@
         productVersion: "1.0",
       }).then((unityInstance) => {
         loadingText.style.display = "none";
-        // Gỡ focus ngay lập tức
+        // Đảm bảo không có tiêu điểm vào canvas sau khi load
         canvas.blur();
         window.focus();
       }).catch((message) => {
         console.error(message);
       });
 
-      // Trick xóa viền khi click chuột
+      // 3. CHIÊU CUỐI: CHẶN HÀNH VI FOCUS MẶC ĐỊNH KHI CLICK
       canvas.addEventListener('mousedown', function(e) {
-        // Chặn hành động focus mặc định của trình duyệt
-        e.preventDefault();
+        e.preventDefault(); // Ngăn trình duyệt đánh dấu focus ring
         window.focus();
         canvas.blur();
-      });
-      
+      }, false);
+
+      // Chặn luôn cho cảm ứng điện thoại
       canvas.addEventListener('touchstart', function(e) {
-        e.preventDefault();
         canvas.blur();
-      });
+      }, {passive: true});
     </script>
   </body>
 </html>
