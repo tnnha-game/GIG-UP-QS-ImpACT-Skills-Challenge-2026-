@@ -5,17 +5,16 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>GIG-UP | Vinexus</title>
     <style>
-      /* 1. TRIỆT TIÊU VIỀN XANH TRÊN TẤT CẢ PHẦN TỬ */
+      /* 1. TRIỆT TIÊU TOÀN BỘ VIỀN TRÊN MỌI TRÌNH DUYỆT */
       * {
         outline: none !important;
+        box-shadow: none !important;
         -webkit-tap-highlight-color: rgba(0,0,0,0) !important;
       }
 
       html, body {
-        margin: 0 !important;
-        padding: 0 !important;
-        width: 100% !important;
-        height: 100% !important;
+        margin: 0 !important; padding: 0 !important;
+        width: 100% !important; height: 100% !important;
         background-color: #000 !important;
         overflow: hidden !important;
         display: flex !important;
@@ -24,44 +23,45 @@
       }
 
       #unity-container { 
-        width: 100vw; 
-        height: 100vh; 
-        display: flex; 
-        justify-content: center; 
-        align-items: center; 
+        width: 100vw; height: 100vh; 
+        display: flex; justify-content: center; align-items: center; 
         position: relative; 
       }
 
       #unity-canvas { 
-        /* 2. HIỂN THỊ TO & CÂN ĐỐI */
-        width: 98vw !important; 
-        height: auto !important; 
-        aspect-ratio: 16 / 9 !important; 
-        max-height: 98vh !important; 
-        object-fit: contain !important; 
+        /* 2. ÉP SIZE TO & CHÍNH GIỮA */
+        width: 100% !important; 
+        height: 100% !important;
+        max-width: 98vw; 
+        max-height: 98vh; 
+        aspect-ratio: 16 / 9; 
+        object-fit: contain; 
         background: #231f20;
-
-        /* 3. KHÓA VIỀN XANH CỨNG */
+        
+        /* 3. PHONG ẤN VIỀN XANH (CỰC MẠNH) */
         border: none !important;
+        outline: 0 !important;
         outline: none !important;
-        box-shadow: none !important;
+        -webkit-appearance: none;
       }
 
-      /* Chặn viền xanh khi click/active trên Chrome Mac */
-      #unity-canvas:focus, #unity-canvas:active, #unity-canvas:focus-visible {
+      /* Chặn đứng cơ chế Focus-visible của Chrome Mac */
+      #unity-canvas:focus, 
+      #unity-canvas:active, 
+      #unity-canvas:focus-visible,
+      canvas:focus {
         outline: none !important;
+        outline: 0 !important;
         box-shadow: none !important;
+        border: none !important;
       }
       
       #loading-text {
-        position: absolute; 
-        color: #ffffff; 
+        position: absolute; color: #ffffff; 
         font-family: 'Segoe UI', Tahoma, sans-serif;
-        font-size: 14px; 
-        letter-spacing: 4px; 
+        font-size: 14px; letter-spacing: 4px; 
         animation: blink 2s infinite;
-        z-index: 10;
-        pointer-events: none;
+        z-index: 10; pointer-events: none;
       }
       @keyframes blink { 0% { opacity: 0.1; } 50% { opacity: 0.8; } 100% { opacity: 0.1; } }
     </style>
@@ -87,17 +87,24 @@
         productVersion: "1.0",
       }).then((unityInstance) => {
         loadingText.style.display = "none";
-        canvas.blur(); // Gỡ tiêu điểm ngay khi game sẵn sàng
+        // Gỡ focus ngay lập tức
+        canvas.blur();
+        window.focus();
       }).catch((message) => {
         console.error(message);
       });
 
-      // Trick cuối: Ngay khi nhấn chuột, ép trình duyệt không tập trung vào canvas
+      // Trick xóa viền khi click chuột
       canvas.addEventListener('mousedown', function(e) {
-        setTimeout(function() { 
-            window.focus(); 
-            canvas.blur(); 
-        }, 10);
+        // Chặn hành động focus mặc định của trình duyệt
+        e.preventDefault();
+        window.focus();
+        canvas.blur();
+      });
+      
+      canvas.addEventListener('touchstart', function(e) {
+        e.preventDefault();
+        canvas.blur();
       });
     </script>
   </body>
