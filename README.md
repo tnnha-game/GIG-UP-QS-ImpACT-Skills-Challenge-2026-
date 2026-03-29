@@ -15,7 +15,7 @@ Deployment: GitHub Pages
 ## 📂 How to Run
 Access the game via the live link: https://tnnha-game.github.io/GIG-UP-QS-ImpACT-Skills-Challenge-2026-/ (Github pages)
                                 
-                                or https://tnnha-game.itch.io/gig-up-by-vinexus (itch.io)
+Access the game via the live link: https://tnnha-game.itch.io/gig-up-by-vinexus (itch.io)
 
 Wait for the LOADING... screen to finish.
 
