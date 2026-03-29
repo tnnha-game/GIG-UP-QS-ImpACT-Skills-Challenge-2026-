@@ -1,16 +1,18 @@
 # GIG-UP: A 2D Systems-Based Simulation Game
 
 ## 🚀 Overview
-GIG-UP is a Unity-based game designed to educate young people and young workers on the precarious nature of the Gig Economy and experience  the rapid evolution of AI. Players must navigate a 90-day cycle, balancing high-stakes contracts with financial management, skill improvement, and protecting physical and mental health. 
+GIG-UP: Don’t Just Survive, Thrive!
 
-Players step into the shoes of Alex, a young person navigating a volatile labor market where data-driven decisions on reskilling and resource management are the only keys to survival and growth.
+Welcome to GIG-UP, a 2D systems-based simulation game developed by team Vinexus from VinUniversity for the QS ImpACT Skills Challenge 2026.
+
+💼 The Challenge: Step into the shoes of Alex, a young person navigating the volatile world of the Gig Economy. Your mission? Balance 5 core life stats: Cash, Energy, Health, Stress, and Skill in 90-day life simulation. 
+
+🌱 The Impact:  Through immersive gameplay, GIG-UP models labor market instability and the critical need for reskilling. By navigating Alex’s journey, players directly engage with core SDGs 1, 8, and 10, tackling financial precariousness and the drive for equitable economic growth. Can you help Alex rise above the bills, build a sustainable career, and find a balanced life? Beyond its core mission, GIG-UP promotes SDGs 4, 3, and 16 by emphasizing lifelong learning, mental well-being, and the ethical resilience needed to resist social temptations and illegal shortcuts when facing extreme hardship.
+
+Every choice is a transaction. Every click defines your future.
 
 ## 🛠 Tech Stack
 Game Engine: Unity (C#)
-
-Platform: WebGL (optimized for 16:9 displays)
-
-Deployment: GitHub Pages
 
 ## 📂 How to Run
 Access the game via the live link: https://tnnha-game.github.io/GIG-UP-QS-ImpACT-Skills-Challenge-2026-/ (Github pages)
