@@ -15,7 +15,7 @@ public class SoundManager : MonoBehaviour
     public AudioClip toggleSound; 
 
     [Header("--- 3. GAMEPLAY CLIPS ---")]
-    public AudioClip selectJob;      // Giữ lại để tránh lỗi các script cũ
+    public AudioClip selectJob;   
     public AudioClip workStudyVital; 
     public AudioClip jobsShopVital;  
     public AudioClip purchaseSound;  
@@ -57,10 +57,9 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    // --- HÀM DÀNH CHO APPLY JOB & STUDY (RIÊNG BIỆT) ---
+    // --- HÀM DÀNH CHO APPLY JOB & STUDY RIÊNG ---
     public void PlayApplyStudy() 
     {
-        // Ưu tiên phát applyStudyClip, nếu chưa kéo thì phát tạm selectJob
         AudioClip clipToPlay = (applyStudyClip != null) ? applyStudyClip : selectJob;
         
         if (clipToPlay != null)
@@ -70,7 +69,6 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    // --- CÁC HÀM CẦU NỐI (GIỮ ĐỂ KHÔNG LỖI GAME) ---
     public void PlayPurchase() => PlayPurchaseSound(); 
     public void PlaySelectJob() => PlayApplyStudy();
 
@@ -98,7 +96,6 @@ public class SoundManager : MonoBehaviour
         PlaySFX(clip);
     }
 
-    // HÀM CỐT LÕI
     private void PlaySFX(AudioClip clip)
     {
         if (sfxSource != null && clip != null)
