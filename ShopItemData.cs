@@ -13,14 +13,14 @@ public class ShopItemData : ScriptableObject
     public int price;             
 
     [Header("--- For Education Only ---")]
-    public int studyHours;        // Đổi sang int cho Clicker (6, 15, 30...)
+    public int studyHours;   
     public int skillReward;       
-    public float energyCost;      // Ví dụ: 1, 2, 3 (Trừ năng lượng mỗi click)
-    public float stressGain;      // Ví dụ: 1, 2, 3 (Tăng stress mỗi click)
+    public float energyCost;   
+    public float stressGain;      
 
     [Header("--- Description ---")]
     [TextArea(3, 10)] 
-    public string purpose;        // "Mở khóa J12, J13, J14..."
+    public string purpose;    
 
     [Header("--- Runtime Status ---")]
     public bool isOwned = false;  
