@@ -11,13 +11,13 @@ public class VitalItemData : ScriptableObject
     public int price;
     public VitalType type;
 
-    [Header("Chỉ số (Cho Activity)")]
+    [Header("Cho Activity")]
     public float duration; 
     public int energyEffect;
     public int stressEffect;
     public int healthEffect;
 
-    [Header("Dữ liệu Nhà (Cho Housing)")]
+    [Header("Cho Housing")]
     [Tooltip("Kéo file HousingData tương ứng (H01, H02...) vào đây")]
     public HousingData housingData; 
 
