@@ -46,22 +46,20 @@ public class ShopItemUI : MonoBehaviour
         bool isOwned = CheckActualOwnership(itemData.itemID);
         bool canAfford = PlayerStats.Instance.cash >= itemData.price;
 
-        // --- 1. THÔNG TIN CƠ BẢN (Luôn luôn hiện) ---
+        // --- 1. THÔNG TIN CƠ BẢN ---
         if (nameText != null) nameText.text = itemData.itemName;
         if (purposeText != null) purposeText.text = itemData.purpose;
         if (iconImage != null) iconImage.sprite = itemData.itemIcon;
 
-        // --- 2. CHỈ SỐ STATS (Energy/Stress) - HIỆN RÕ NHÃN (LABEL) ---
+        // --- 2. CHỈ SỐ STATS (Energy/Stress) - HIỆN LABEL ---
         if (energyValueText != null)
         {
-            // Ghi rõ nhãn "Energy:" để không bị nhầm với các con số khác
             energyValueText.text = "Energy: -" + itemData.energyCost.ToString();
             energyValueText.gameObject.SetActive(true); 
         }
 
         if (stressValueText != null)
         {
-            // Ghi rõ nhãn "Stress:"
             stressValueText.text = "Stress: +" + itemData.stressGain.ToString();
             stressValueText.gameObject.SetActive(true);
         }
@@ -69,7 +67,6 @@ public class ShopItemUI : MonoBehaviour
         // --- 3. LOGIC HIỆN/ẨN THEO CATEGORY ---
         if (itemData.category == ShopItemData.Category.Education)
         {
-            // Nếu là bằng cấp: Hiện bảng chứa Hours và Skill Reward
             if (studyInfoParent != null) studyInfoParent.SetActive(true);
             
             if (studyHoursValueText != null) 
@@ -80,14 +77,12 @@ public class ShopItemUI : MonoBehaviour
         }
         else
         {
-            // Nếu là Đồ vật: Tắt bảng Hours/Skill để thẻ Smartphone trông gọn hơn
             if (studyInfoParent != null) studyInfoParent.SetActive(false);
         }
 
         // --- 4. XỬ LÝ TRẠNG THÁI NÚT BẤM VÀ GIÁ TIỀN ---
         if (isOwned)
         {
-            // Đã sở hữu hoặc đã tốt nghiệp
             if (priceText != null) 
             {
                 priceText.text = (itemData.category == ShopItemData.Category.Education) ? "GRADUATED" : "OWNED";
@@ -100,7 +95,6 @@ public class ShopItemUI : MonoBehaviour
         }
         else
         {
-            // Kiểm tra xem Alex có đang trong quá trình học môn này không
             bool isLearning = (PlayerStats.Instance.currentLearningID == itemData.itemID);
 
             if (priceText != null) 
@@ -110,9 +104,7 @@ public class ShopItemUI : MonoBehaviour
                     priceText.color = Color.yellow;
                 }
                 else {
-                    // Hiện chữ Price để rõ ràng hơn
                     priceText.text = "Price: $" + itemData.price.ToString("N0");
-                    // Đổi màu đỏ nếu không đủ tiền - Business Analytics: Cảnh báo ngân sách!
                     priceText.color = canAfford ? Color.white : Color.red;
                 }
             }
@@ -122,10 +114,9 @@ public class ShopItemUI : MonoBehaviour
             
             if (actionButton.image != null)
             {
-                // Thay đổi Sprite nút: Nút "Học" cho bằng cấp, nút "Mua" cho đồ vật
+                // Thay đổi Sprite nút: Nút "STUDY" cho bằng cấp, nút "PURCHASE" cho đồ vật
                 actionButton.image.sprite = (itemData.category == ShopItemData.Category.Education) ? studyButtonSprite : purchaseButtonSprite;
                 
-                // Hiệu ứng màu sắc trực quan
                 if (isLearning) 
                     actionButton.image.color = new Color(0.5f, 1f, 0.5f); // Màu xanh lá nhẹ
                 else if (!canAfford) 
@@ -153,7 +144,7 @@ public class ShopItemUI : MonoBehaviour
             studyJob.jobName = itemData.itemName;
             studyJob.pay = 0;
             
-            // Lấy trực tiếp từ itemData để đồng nhất dữ liệu
+            // Lấy từ itemData để đồng nhất dữ liệu
             studyJob.energyCost = -itemData.energyCost; 
             studyJob.stressGain = itemData.stressGain;  
             studyJob.skillGain = (float)itemData.skillReward / itemData.studyHours;
