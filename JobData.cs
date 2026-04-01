@@ -5,22 +5,21 @@ public class JobData : ScriptableObject
 {
     [Header("--- Basic Info ---")]
     public string jobID; 
-    public string jobName;      // Tên công việc (VD: Shipper, IT Senior)
+    public string jobName;     
     public Sprite jobImage; 
     
     [Header("--- Event & Ending Logic ---")]
-    public bool isOnline;       // Tích nếu làm trên mạng (tính tỉ lệ bị Hack)
-    public bool isIllegal;      // TÍCH VÀO ĐÂY nếu là việc phạm pháp để ra Ending GREED
-    public string jobTier = "Easy"; // Nhập: Easy, Mid, Pro, hoặc Elite
+    public bool isOnline;      
+    public bool isIllegal;     
+    public string jobTier = "Easy";
 
     [Header("Base Stats (Tính trên mỗi 1 giờ làm việc)")]
-    public float pay;           // Lương nhận được sau 1h
-    public float energyCost;    // Năng lượng mất đi sau 1h
-    public float stressGain;    // Căng thẳng tăng thêm sau 1h
-    public float skillGain;     // Kỹ năng tăng thêm sau 1h
+    public float pay;          
+    public float energyCost;   
+    public float stressGain;  
+    public float skillGain;    
 
     // Ẩn duration đi vì mỗi lần Click mặc định là 1 giờ. 
-    // Giữ lại biến này để không làm vỡ các script tính toán thời gian khác của bạn.
     [HideInInspector] 
     public int duration = 1; 
 
