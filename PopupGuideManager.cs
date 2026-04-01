@@ -35,7 +35,7 @@ public class PopupGuideManager : MonoBehaviour
         HandleThreshold(3, p.stress > 80, "High stress is a silent tax on your productivity that clouds your long-term vision. A broken mind cannot calculate the path to a successful life, forcing you to make desperate choices.");
         HandleThreshold(7, p.cash < 50, "Cash flow is the oxygen of your survival; never let your lifestyle expenses outpace your daily energy levels. If outgoing costs exceed effort, you will suffocate in debt before you ever reach the finish line.");
 
-        // --- NHÓM 2: HIỆN 1 LẦN DUY NHẤT (Cột mốc tư duy) ---
+        // --- NHÓM 2: HIỆN 1 LẦN DUY NHẤT ---
         HandleOnce(4, p.currentDay > 20 && p.currentJobTier == "Easy", "The journey from $6/hr to $160/hr is less about working more hours and more about growing your inner value. While hard work is the foundation, your Skills are the wings.");
         HandleOnce(5, p.cash >= 1200 && p.skill < 150, "Even the most advanced tools are just silent objects if you lack the knowledge to bring them to life. While equipment accelerates pace, Education is the engine.");
         HandleOnce(6, p.skill > 500, "Knowledge is the only global asset that never depreciates, even when the market shifts. Your Education remains a permanent shield against economic inequality.");
