@@ -7,7 +7,7 @@ public class VitalUIManager : MonoBehaviour
     public static VitalUIManager Instance;
 
     public Slider energyBar, stressBar, healthBar;
-    public TextMeshProUGUI moneyDisplay; // Hiện tiền trong bảng Vital
+    public TextMeshProUGUI moneyDisplay;
 
     void Awake() => Instance = this;
 
@@ -15,7 +15,7 @@ public class VitalUIManager : MonoBehaviour
     {
         if (PlayerStats.Instance == null) return;
 
-        // Cập nhật 3 thanh trượt (Chia 100 vì Slider chạy từ 0 đến 1)
+        // Cập nhật 3 thanh trượt
         if (energyBar != null) energyBar.value = PlayerStats.Instance.energy / 100f;
         if (stressBar != null) stressBar.value = PlayerStats.Instance.stress / 100f;
         if (healthBar != null) healthBar.value = PlayerStats.Instance.health / 100f;
