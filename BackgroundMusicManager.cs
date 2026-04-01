@@ -5,14 +5,14 @@ public class BackgroundMusicManager : MonoBehaviour
     public static BackgroundMusicManager Instance;
 
     [Header("--- Audio Setup ---")]
-    public AudioSource musicSource; // Kéo AudioSource vào đây
-    [Range(0f, 1f)] public float musicVolume = 0.25f; // Nhạc nền nên để nhỏ (25%)
+    public AudioSource musicSource; 
+    [Range(0f, 1f)] public float musicVolume = 0.25f;
 
     private bool isFadingOut = false;
 
     void Awake()
     {
-        // 1. Singleton để nhạc không bị ngắt khi đổi Scene
+        // 1. Singleton 
         if (Instance == null)
         {
             Instance = this;
@@ -24,7 +24,7 @@ public class BackgroundMusicManager : MonoBehaviour
             return;
         }
 
-        // 2. Tự lấy AudioSource nếu chưa kéo
+        // 2. AudioSource 
         if (musicSource == null) musicSource = GetComponent<AudioSource>();
 
         // 3. Cấu hình Loop cho nhạc nền Arcade #17
@@ -49,7 +49,7 @@ public class BackgroundMusicManager : MonoBehaviour
 
     private void FadeOutMusic()
     {
-        // Nhạc nhỏ dần khi thua game để nhường chỗ cho tiếng Ending của SoundManager
+        // Nhạc nhỏ dần khi game over để nhường chỗ cho tiếng Ending của SoundManager
         if (musicSource.volume > 0)
         {
             musicSource.volume -= Time.unscaledDeltaTime * 0.5f;
@@ -60,7 +60,7 @@ public class BackgroundMusicManager : MonoBehaviour
         }
     }
 
-    // Hàm gọi để đổi nhạc hoặc bật lại nhạc khi chơi ván mới
+    // Đổi nhạc hoặc bật lại nhạc khi chơi ván mới
     public void RestartMusic()
     {
         isFadingOut = false;
