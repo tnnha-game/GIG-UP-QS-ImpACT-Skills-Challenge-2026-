@@ -26,7 +26,6 @@ public class SettingsManager : MonoBehaviour
 
     void Start()
     {
-        // Đóng tất cả Panel để hiện màn hình chính (Start Menu)
         if (settingsPanel) settingsPanel.SetActive(false);
         if (tutorialPanel) tutorialPanel.SetActive(false);
         if (jobSelectPanel) jobSelectPanel.SetActive(false);
@@ -35,15 +34,14 @@ public class SettingsManager : MonoBehaviour
         isSceneLoading = false;
         selectedJob = null;
         Time.timeScale = 1; 
-        history.Clear(); // Xóa lịch sử khi game mới bắt đầu
+        history.Clear();
     }
 
-    // --- HỆ THỐNG ĐIỀU HƯỚNG (Navigation System) ---
+    // --- Navigation System ---
     public void OpenNewPage(GameObject nextPanel)
     {
         if (nextPanel == null) return;
 
-        // Popup xác nhận hiện đè, không tính vào lịch sử
         if (nextPanel == confirmPopUp)
         {
             nextPanel.SetActive(true);
@@ -52,7 +50,6 @@ public class SettingsManager : MonoBehaviour
 
         GameObject currentActive = GetActivePanel();
         
-        // Nếu đang ở một trang (như Tutorial), ẩn nó đi và lưu vào Stack
         if (currentActive != null && currentActive != nextPanel)
         {
             currentActive.SetActive(false);
@@ -86,7 +83,7 @@ public class SettingsManager : MonoBehaviour
         }
         else
         {
-            // 3. Nếu không còn trang nào trong lịch sử, tắt luôn trang hiện tại (về Start Menu)
+            // 3. Nếu không còn trang nào trong history, tắt luôn trang hiện tại (về Start Menu)
             GameObject currentActive = GetActivePanel();
             if (currentActive != null)
             {
@@ -96,7 +93,6 @@ public class SettingsManager : MonoBehaviour
         }
     }
 
-    // Hàm nhận diện trang đang mở - Key chính để sửa lỗi Back
     private GameObject GetActivePanel()
     {
         if (settingsPanel && settingsPanel.activeSelf) return settingsPanel;
@@ -105,7 +101,7 @@ public class SettingsManager : MonoBehaviour
         return null;
     }
 
-    // --- LOGIC LUỒNG GAME ---
+    // --- PLAYER JOURNEY ---
     public void StartGame() { OpenNewPage(tutorialPanel); }
     public void ShowJobSelection() { OpenNewPage(jobSelectPanel); }
 
@@ -121,13 +117,12 @@ public class SettingsManager : MonoBehaviour
     {
         if (isSceneLoading) return;
 
-        // Chống lỗi rỗng dữ liệu
         if (selectedJob == null && PlayerStats.Instance != null)
             selectedJob = PlayerStats.Instance.selectedJob;
 
         if (selectedJob == null)
         {
-            Debug.LogError("Chưa có JobData! Hà kiểm tra lại việc gán JobCard nhé.");
+            Debug.LogError("Chưa có JobData! Hà kiểm tra lại việc gán JobCard.");
             return;
         }
 
