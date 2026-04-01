@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>GIG-UP | Vinexus</title>
     <style>
-      /* 1. TRIỆT TIÊU VIỀN XANH TRÊN MỌI TRÌNH DUYỆT */
+      /* 1. XOÁ VIỀN XANH TRÊN ALL BROWSER */
       * {
         outline: none !important;
         box-shadow: none !important;
@@ -35,7 +35,7 @@
       }
 
       #unity-canvas { 
-        /* TỐI ƯU HIỂN THỊ LINH HOẠT THEO SIZE MÀN HÌNH */
+        /* HIỂN THỊ LINH HOẠT THEO SIZE MÀN HÌNH */
         max-width: 98%; 
         max-height: 98%; 
         aspect-ratio: 16 / 9; 
@@ -92,16 +92,14 @@
         console.error(message);
       });
 
-      /* TRICK CUỐI: CHẶN VIỀN XANH KHI CLICK CHUỘT */
+      /* CHẶN VIỀN XANH KHI CLICK CHUỘT */
       canvas.addEventListener('mousedown', function(e) { 
-        // Ép trình duyệt không focus vào canvas để không hiện viền
         setTimeout(function() { 
           window.focus(); 
           canvas.blur(); 
         }, 10);
       }, false);
       
-      // Chặn menu chuột phải cho chuyên nghiệp
       canvas.addEventListener('contextmenu', function(e) { e.preventDefault(); }, false);
     </script>
   </body>
