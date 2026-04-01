@@ -7,8 +7,6 @@ public class UniversalSettings : MonoBehaviour
     [Tooltip("Kéo Panel chứa 2 nút MainMenu/Exit vào đây")]
     public GameObject settingsPanel; 
 
-    // --- HÀM CHO NÚT BÁNH RĂNG ---
-    // Gán hàm này vào Event OnClick của nút Bánh Răng ở TẤT CẢ các Scene
     public void ToggleSettings()
     {
         if (settingsPanel != null)
@@ -18,7 +16,6 @@ public class UniversalSettings : MonoBehaviour
             settingsPanel.SetActive(isActive);
 
             // 2. Gọi âm thanh Toggle (glitch_002) từ SoundManager
-            // Lưu ý: Tên hàm phải khớp 100% với SoundManager.cs
             if (SoundManager.Instance != null) 
             {
                 SoundManager.Instance.PlayToggleSound();
@@ -32,9 +29,8 @@ public class UniversalSettings : MonoBehaviour
     // --- HÀM CHO NÚT MAIN MENU ---
     public void BackToMainMenu()
     {
-        // Luôn Reset lại thời gian về 1 trước khi chuyển Scene để tránh bị đứng game
         Time.timeScale = 1f; 
-        SceneManager.LoadScene("Scene1"); // Đảm bảo "Scene1" đúng tên Scene của bạn
+        SceneManager.LoadScene("Scene1");
     }
 
     // --- HÀM CHO NÚT EXIT GAME ---
