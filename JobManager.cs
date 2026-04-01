@@ -9,7 +9,7 @@ public class JobManager : MonoBehaviour
 
     [Header("--- UI PANELS ---")]
     public GameObject jobPanel;       
-    public GameObject confirmPopUp; // Kéo thả ConfirmPopUp từ Hierarchy vào đây để tránh lỗi Find
+    public GameObject confirmPopUp; 
 
     [Header("--- DATA SOURCE ---")]
     public List<JobData> allJobs;    
@@ -39,13 +39,12 @@ public class JobManager : MonoBehaviour
         Invoke("ShowFeaturedJobs", 0.1f);
     }
 
-    // --- LUỒNG DÀNH CHO SCENE 1: MỞ BẢNG XÁC NHẬN ---
+    // --- SCENE 1: POPUP CONFIRM ---
     public void OpenConfirmPanel(JobData data)
     {
         if (data == null) return;
         selectedJob = data; 
 
-        // Ưu tiên dùng ô kéo thả, nếu null mới đi tìm thủ công
         GameObject popUp = confirmPopUp;
         if (popUp == null)
         {
@@ -63,7 +62,6 @@ public class JobManager : MonoBehaviour
             popUp.SetActive(true);
             popUp.transform.SetAsLastSibling();
 
-            // Setup nút YES: Ghi đè sự kiện để nạp đúng Job được chọn
             Button btnYes = popUp.transform.Find("Btn_YES")?.GetComponent<Button>();
             if (btnYes != null)
             {
@@ -71,7 +69,6 @@ public class JobManager : MonoBehaviour
                 btnYes.onClick.AddListener(OnConfirmYes); 
             }
 
-            // Setup nút NO: Chỉ đóng popup
             Button btnNo = popUp.transform.Find("Btn_NO")?.GetComponent<Button>();
             if (btnNo != null)
             {
@@ -81,7 +78,6 @@ public class JobManager : MonoBehaviour
         }
         else
         {
-            // Nếu không tìm thấy UI thì thực thi luôn để tránh kẹt game
             OnConfirmYes(); 
         }
     }
@@ -90,43 +86,38 @@ public class JobManager : MonoBehaviour
     {
         if (selectedJob != null && PlayerStats.Instance != null)
         {
-            // Nạp dữ liệu Job vào bộ nhớ tĩnh (Singleton)
             PlayerStats.Instance.selectedJob = selectedJob;
             PlayerStats.Instance.currentJobTier = selectedJob.jobTier;
             PlayerStats.Instance.lastJobName = selectedJob.jobName;
 
-            // Chuyển sang Scene Gameplay chính
             SceneManager.LoadScene("Scene2");
             Debug.Log("<color=green>[JobManager]</color> Scene 1: Chốt Job " + selectedJob.jobName);
         }
     }
 
-    // --- LUỒNG DÀNH CHO SCENE 2: NHẢY VIỆC NHANH ---
+    // --- SCENE 2 ---
     public void QuickApplyJob(JobData data)
     {
         if (data == null || PlayerStats.Instance == null) return;
 
-        // Cập nhật Job mới ngay lập tức mà không cần xác nhận
         PlayerStats.Instance.selectedJob = data;
         PlayerStats.Instance.currentJobTier = data.jobTier;
         PlayerStats.Instance.lastJobName = data.jobName;
 
-        // Vẽ lại bảng Job để làm mờ nút vừa chọn (Thành trạng thái "Current")
+        // Vẽ lại bảng Job để làm mờ nút vừa chọn ("Current")
         PopulateJobBoard();
 
         Debug.Log("<color=cyan>[JobManager]</color> Scene 2: Đã nhảy việc sang " + data.jobName);
     }
 
-    // --- LOGIC ĐI LÀM (1 CLICK = 1 HOUR) ---
+    // --- LOGIC WORK (1 CLICK = 1 HOUR) ---
     public void ExecuteJobWork(JobData data)
     {
         if (PlayerStats.Instance == null || data == null) return;
         
-        // Đồng bộ thông tin Job hiện tại
         PlayerStats.Instance.currentJobTier = data.jobTier;
         PlayerStats.Instance.lastJobName = data.jobName;
 
-        // Logic rủi ro (Hà giữ nguyên)
         if (data.isOnline)
         {
             float hackChance = PlayerStats.Instance.hasProLaptop ? 0.02f : 0.15f;
@@ -141,19 +132,17 @@ public class JobManager : MonoBehaviour
             }
         }
 
-        // CHỐT: Truyền cứng tham số 1 để thực thi 1 click = 1 giờ
         PlayerStats.Instance.Work(
             data.pay, 
             data.skillGain, 
             (float)data.energyCost, 
             (float)data.stressGain, 
-            1, // <--- ĐÃ FIX: Không dùng data.duration, luôn là 1 giờ
+            1,
             data.jobName,   
             data.isIllegal  
         );
     }
 
-    // --- CÁC HÀM TIỆN ÍCH UI ---
     public void OpenJobBoard()
     {
         if (jobPanel != null)
@@ -183,34 +172,30 @@ public class JobManager : MonoBehaviour
         // 1. Kiểm tra an toàn (Safety Check) - Tránh lỗi NullReference
         if (contentParent == null || jobCardPrefab == null || allJobs == null) 
         {
-            Debug.LogWarning("<color=yellow>[JobManager]</color> Cảnh báo: Thiếu Prefab hoặc ContentParent trong Inspector!");
+            Debug.LogWarning("<color=yellow>[JobManager]</color> Warning: Thiếu Prefab hoặc ContentParent trong Inspector!");
             return;
         }
     
-        // 2. Dọn dẹp Card cũ (Data Cleaning)
-        // Dùng vòng lặp ngược hoặc Destroy ngay lập tức để làm sạch ScrollView
+        // 2. Data Cleaning
         foreach (Transform child in contentParent) 
         { 
             Destroy(child.gameObject); 
         }
 
-        // 3. SẮP XẾP LOGIC (UX Optimization)
-        // Copy danh sách ra một list tạm để sắp xếp, giúp Alex dễ tìm việc làm được hơn
+        // 3. UX Optimization
         List<JobData> displayList = new List<JobData>(allJobs);
     
         displayList.Sort((a, b) => {
             bool aUnlocked = CheckJobUnlock(a);
             bool bUnlocked = CheckJobUnlock(b);
         
-            // Ưu tiên 1: Job nào đã mở khóa (Unlock) thì lên trên
             if (aUnlocked && !bUnlocked) return -1;
             if (!aUnlocked && bUnlocked) return 1;
         
-            // Ưu tiên 2: Sắp xếp theo ID (J04 -> J16)
             return GetID(a.jobID).CompareTo(GetID(b.jobID));
         });
 
-        // 4. KHỞI TẠO CARD (Generation)
+        // 4. KHỞI TẠO CARD
         foreach (JobData job in displayList)
         {
             if (job == null || string.IsNullOrEmpty(job.jobID)) continue;
@@ -218,31 +203,27 @@ public class JobManager : MonoBehaviour
             // Lọc ID >= 4 cho bảng phụ ở Scene 2
             if (GetID(job.jobID) >= 4) 
             {
-                // Tạo Card mới bên trong Content của ScrollView
                 GameObject newCard = Instantiate(jobCardPrefab, contentParent);
             
-                // Đảm bảo tỉ lệ Card không bị biến dạng khi vào Layout Group
                 newCard.transform.localScale = Vector3.one;
                 newCard.transform.localPosition = Vector3.zero;
 
                 JobCardUI ui = newCard.GetComponent<JobCardUI>();
                 if (ui != null) 
                 {
-                // Truyền dữ liệu Job và kết quả check điều kiện mới nhất của Alex
                 ui.SetupCard(job, CheckJobUnlock(job));
                 }
             }
         }
 
-        // 5. CẬP NHẬT GIAO DIỆN (UI Refresh)
-        // Ép Unity tính toán lại kích thước ScrollView ngay lập tức để không bị lỗi cuộn
+        // 5. CẬP NHẬT GIAO DIỆN 
         Canvas.ForceUpdateCanvases();
         if (contentParent.GetComponent<UnityEngine.UI.ContentSizeFitter>() != null)
         {
             LayoutRebuilder.ForceRebuildLayoutImmediate(contentParent.GetComponent<RectTransform>());
         }
     
-        Debug.Log("<color=green>[JobManager]</color> Đã nạp lại bảng Job dựa trên Skill thực tế của Alex.");
+        Debug.Log("<color=green>[JobManager]</color> Đã nạp lại bảng Job dựa trên Skill của Alex.");
     }
 
     public bool CheckJobUnlock(JobData job)
@@ -250,7 +231,6 @@ public class JobManager : MonoBehaviour
         PlayerStats p = PlayerStats.Instance;
         if (p == null) return true;
 
-        // Kiểm tra điều kiện mở khóa dựa trên chỉ số của Alex
         if (p.skill < job.reqSkill) return false;
         if (job.reqSmartphone && !p.hasSmartphone) return false;
         if (job.reqEMotorcycle && !p.hasEMotorcycle) return false;
@@ -258,7 +238,6 @@ public class JobManager : MonoBehaviour
         if (job.reqProLaptop && !p.hasProLaptop) return false;
         if (job.reqDegree && !p.hasUniversityDegree) return false;
 
-        // Kiểm tra ngày mở Job
         if (p.currentDay < job.reqDay) return false;
         
         return true; 
