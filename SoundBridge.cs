@@ -8,9 +8,9 @@ public class SoundBridge : MonoBehaviour
     public void PlayNo() => SoundManager.Instance?.PlayNoClick();
     public void PlayToggle() => SoundManager.Instance?.PlayToggleSound();
 
-    // --- 2. CÁC HÀM GAMEPLAY (PHÂN LOẠI RÕ RÀNG) ---
+    // --- 2. CÁC HÀM GAMEPLAY ---
 
-    // [Dùng cho: Bảng Shop (Smartphone, Laptop, Xe) và Bảng Vital (Mua đồ ăn/hồi máu)]
+    // [Dùng cho: Bảng Shop (Smartphone, Laptop, Xe) và Bảng Vital]
     // Sẽ phát file 'purchaseSound' trong SoundManager
     public void PlayPurchase() => SoundManager.Instance?.PlayPurchase();
 
@@ -18,25 +18,23 @@ public class SoundBridge : MonoBehaviour
     // Sẽ phát file 'applyStudyClip' (hoặc selectJob) trong SoundManager
     public void PlayApplyJob() => SoundManager.Instance?.PlayApplyStudy();
 
-    // [Dùng cho: Bảng Shop (Nút Study/Học tập)]
+    // [Dùng cho: Bảng Shop (Nút Study)]
     // Sẽ phát file 'applyStudyClip' (hoặc selectJob) trong SoundManager
     public void PlayStudy() => SoundManager.Instance?.PlayApplyStudy();
 
     // Dùng cho các nút bấm nhỏ (Làm việc, hồi phục)
     public void PlayWorkStudy() => SoundManager.Instance?.PlayWorkStudyVital();
     
-    // Dùng cho 3 nút CHUYỂN BẢNG to: Jobs, Shop, Vital
+    // Dùng cho 3 nút CHUYỂN BẢNG: Jobs, Shop, Vital
     public void PlayJobsShopVital() => SoundManager.Instance?.PlayJobsShopVital();
     
-    // Hàm cũ giữ lại để không lỗi các script khác gọi tên này
     public void PlaySelectJob() => SoundManager.Instance?.PlayApplyStudy();
 
-    // --- 3. CÁC HÀM SỰ KIỆN (Event) ---
+    // --- 3. CÁC HÀM SỰ KIỆN ---
     public void PlayEventGood() => SoundManager.Instance?.PlayEventGood();
     public void PlayEventBad() => SoundManager.Instance?.PlayEventBad();
     public void PlayEventWarning() => SoundManager.Instance?.PlayEventWarning();
 
-    // HÀM BỔ SUNG: Để EventManager gọi bằng string (Good, Bad, Warning)
     public void PlayEventSFX(string type)
     {
         switch (type.ToLower())
@@ -47,7 +45,7 @@ public class SoundBridge : MonoBehaviour
         }
     }
 
-    // --- 4. CÁC HÀM KẾT THÚC (Ending) ---
+    // --- 4. CÁC HÀM KẾT THÚC ---
     public void PlayEndingElite() => SoundManager.Instance?.PlayEndingStinger("Elite");
     public void PlayEndingStable() => SoundManager.Instance?.PlayEndingStinger("Stable");
     public void PlayEndingOther() => SoundManager.Instance?.PlayEndingStinger("Other");
