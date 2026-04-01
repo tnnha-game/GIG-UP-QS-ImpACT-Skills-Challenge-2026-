@@ -55,7 +55,7 @@ public class VitalItemUI : MonoBehaviour
         {
             statsText.color = Color.white;
             
-            // Tối ưu hiển thị: Dùng Mathf.Abs để không bị double dấu -- hoặc ++
+            // Dùng Mathf.Abs để không bị double dấu -- hoặc ++
             string nrg = (data.energyEffect >= 0 ? "+" : "-") + Mathf.Abs(data.energyEffect);
             string str = (data.stressEffect >= 0 ? "+" : "-") + Mathf.Abs(data.stressEffect);
             string hlth = (data.healthEffect >= 0 ? "+" : "-") + Mathf.Abs(data.healthEffect);
@@ -116,7 +116,6 @@ public class VitalItemUI : MonoBehaviour
                     PlayerStats.Instance.stress += currentData.stressEffect;
                     PlayerStats.Instance.health += currentData.healthEffect;
                     
-                    // Gọi PassTime để áp dụng ApplyStatusRules (Clamp 0-100) và cập nhật đồng hồ
                     PlayerStats.Instance.PassTime(currentData.duration);
                 }
 
