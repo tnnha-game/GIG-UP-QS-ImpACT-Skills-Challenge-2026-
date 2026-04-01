@@ -9,9 +9,9 @@ public class AlexCornerController : MonoBehaviour
     [SerializeField] private Image displayImage; // Kéo 'Alex_View_Display_Image' vào đây
 
     [Header("--- 3 Ảnh Riêng Cho Alex Corner ---")]
-    public Sprite img_SharedDorm; // Kéo ảnh Dorm (H01) vào đây
-    public Sprite img_Studio;     // Kéo ảnh Studio (H02) vào đây
-    public Sprite img_Apartment;  // Kéo ảnh Apartment (H03) vào đây
+    public Sprite img_SharedDorm; // 
+    public Sprite img_Studio;     // 
+    public Sprite img_Apartment;  // 
 
     private VitalItemData currentHouseData; 
 
@@ -27,8 +27,6 @@ public class AlexCornerController : MonoBehaviour
         RefreshUI();
     }
 
-    /// <summary>
-    /// Hàm này tự động quét ID từ PlayerStats và chọn đúng 1 trong 3 ảnh xịn
     /// </summary>
     [ContextMenu("Refresh Visual Now")]
     public void RefreshUI()
@@ -53,7 +51,7 @@ public class AlexCornerController : MonoBehaviour
                 selectedSprite = img_Apartment;
                 break;
             default:
-                selectedSprite = img_SharedDorm; // Phòng hờ nếu ID sai
+                selectedSprite = img_SharedDorm; // 
                 break;
         }
 
@@ -65,7 +63,7 @@ public class AlexCornerController : MonoBehaviour
             Debug.Log($"<color=cyan>Alex Corner: Đã đổi sang ảnh của {currentID}</color>");
         }
 
-        // 4. Đồng bộ dữ liệu chỉ số (để nút Rest lấy đúng thông số hồi phục)
+        // 4. Đồng bộ dữ liệu chỉ số 
         UpdateDataReference(currentID);
     }
 
