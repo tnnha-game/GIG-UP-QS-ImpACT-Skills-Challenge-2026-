@@ -7,21 +7,21 @@ public class EventManager : MonoBehaviour
     public static EventManager Instance;
 
     [Header("--- UI Panel & Static Buttons ---")]
-    public GameObject eventPanel;       // Cái Panel chung duy nhất Hà đã vẽ
+    public GameObject eventPanel;      
     public GameObject blackOverlay;    
-    public Image backgroundDisplay;    // Kéo Component Image của Nền Panel vào đây
-    public Image titleImageDisplay;    // Kéo Component Image của Chữ Tiêu Đề vào đây
-    public TextMeshProUGUI messageText; // Ô Text hiện Message Content & Impact
+    public Image backgroundDisplay;    
+    public Image titleImageDisplay;   
+    public TextMeshProUGUI messageText; 
 
     [Space(10)]
-    public GameObject understandButton; // Nút Understand tĩnh
-    public GameObject acceptButton;     // Nút Accept tĩnh
-    public GameObject declineButton;    // Nút Decline tĩnh
+    public GameObject understandButton; 
+    public GameObject acceptButton;    
+    public GameObject declineButton;    
 
     [Header("--- 8 Sets of Sprites ---")]
-    [Tooltip("Kéo 8 tấm ảnh Nền tương ứng (0-7) vào đây")]
+    [Tooltip("Kéo 8 tấm ảnh Nền tương ứng (0-7)")]
     public Sprite[] eventBackgrounds; 
-    [Tooltip("Kéo 8 tấm ảnh Chữ Tiêu Đề tương ứng (0-7) vào đây")]
+    [Tooltip("Kéo 8 tấm ảnh Chữ Tiêu Đề tương ứng (0-7)")]
     public Sprite[] eventTitles;      
 
     private int currentEventIndex;
