@@ -4,7 +4,7 @@ using TMPro;
 
 public class JobCardUI : MonoBehaviour
 {
-    [Header("--- 1. DATA (KÉO FILE JOB VÀO ĐÂY) ---")]
+    [Header("--- 1. DATA ---")]
     public JobData debugJobData; 
 
     [Header("--- 2. UI REFERENCES ---")]
@@ -44,7 +44,7 @@ public class JobCardUI : MonoBehaviour
         bool canActuallyWork = isUnlocked && CheckLogicRequirements(data);
         currentIsUnlocked = canActuallyWork;
 
-        // 2. HIỂN THỊ THÔNG TIN (Text & Hình ảnh)
+        // 2. HIỂN THỊ THÔNG TIN 
         if (titleText != null) titleText.text = data.jobName;
     
         if (statsText != null)
@@ -106,7 +106,7 @@ public class JobCardUI : MonoBehaviour
         // 1. Check Skill (Dùng đúng biến reqSkill trong JobData.cs)
         if (p.skill < data.reqSkill) return false; 
 
-        // 2. Check Ngày mở Job (Cái này hay bị quên dẫn đến Card bị khóa)
+        // 2. Check Ngày mở Job
         if (p.currentDay < data.reqDay) return false;
 
         // 3. Check Đồ đạc
@@ -131,7 +131,6 @@ public class JobCardUI : MonoBehaviour
 
         string currentSceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
 
-        // PHÂN LUỒNG XỬ LÝ THEO SCENE
         if (currentSceneName == "Scene1")
         {
             // --- SCENE 1: Gọi JobManager mở Popup xác nhận ---
@@ -148,7 +147,7 @@ public class JobCardUI : MonoBehaviour
         }
         else
         {
-            // --- SCENE 2: Nhảy việc thẳng không qua Popup ---
+            // --- SCENE 2 ---
             Debug.Log("<color=green>[Job System]</color> Scene 2: Đã đổi sang " + currentJobData.jobName);
 
             if (PlayerStats.Instance != null)
