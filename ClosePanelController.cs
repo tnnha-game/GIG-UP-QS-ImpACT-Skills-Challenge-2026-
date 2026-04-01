@@ -3,18 +3,16 @@ using UnityEngine;
 public class ClosePanelController : MonoBehaviour
 {
     [Header("--- UI Setup ---")]
-    [Tooltip("Kéo TẤT CẢ các Panel bạn có (Shop, Job, Vital...) vào danh sách này")]
+    [Tooltip("Kéo TẤT CẢ các Panel (Shop, Job, Vital...) vào danh sách này")]
     public GameObject[] allPanels; 
 
     [Tooltip("Kéo cái HUD/Màn hình chính vào đây để hiện lại")]
     public GameObject mainHUD;
 
-    /// <summary>
-    /// Hàm này dùng cho nút X: Bấm một phát thoát sạch mọi bảng
     /// </summary>
     public void CloseEverything()
     {
-        // 1. Quét qua danh sách và tắt sạch mọi bảng đang mở
+        // 1. Quét qua danh sách và tắt mọi bảng đang mở
         if (allPanels != null && allPanels.Length > 0)
         {
             foreach (GameObject panel in allPanels)
