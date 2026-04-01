@@ -32,7 +32,6 @@ public class ShopManager : MonoBehaviour
     {
         if (isInitialized) return;
 
-        // Reset trạng thái isOwned của Asset để tránh lỗi dữ liệu cũ
         if (allItems != null)
         {
             foreach(var item in allItems) 
@@ -94,7 +93,7 @@ public class ShopManager : MonoBehaviour
             return;
         }
 
-        // 2. Xử lý theo loại vật phẩm
+        // 2. Xử lý theo loại item
         if (item.category == ShopItemData.Category.Education)
         {
             if (!string.IsNullOrEmpty(stats.currentLearningID))
@@ -105,7 +104,7 @@ public class ShopManager : MonoBehaviour
 
             if (CheckIfDegreeOwned(item.itemID))
             {
-                Debug.Log("<color=yellow>[Shop] Đã có bằng cấp này rồi!</color>");
+                Debug.Log("<color=yellow>[Shop] Đã có bằng cấp này</color>");
                 return;
             }
 
@@ -114,7 +113,6 @@ public class ShopManager : MonoBehaviour
             stats.currentLearningID = item.itemID;
             stats.currentCertProgress = 0f;
 
-            // Tạo lộ trình học tập ảo cho Alex
             JobData studyJob = ScriptableObject.CreateInstance<JobData>();
             studyJob.jobName = item.itemName;
             studyJob.pay = 0;
@@ -124,22 +122,22 @@ public class ShopManager : MonoBehaviour
 
             stats.selectedJob = studyJob;
             
-            Debug.Log("<color=green>[Shop] Đăng ký thành công khóa học: </color>" + item.itemName);
+            Debug.Log("<color=green>[Shop] Successfully registerted: </color>" + item.itemName);
         }
         else
         {
-            // GIAO DỊCH EQUIPMENT / VEHICLE
-            if (CheckActualInventory(item.itemID)) // Check thực tế từ PlayerStats thay vì isOwned
+            // EQUIPMENT / VEHICLE
+            if (CheckActualInventory(item.itemID)) // Check từ PlayerStats thay vì isOwned
             {
-                Debug.Log("<color=yellow>[Shop] Bạn đã sở hữu vật phẩm này!</color>");
+                Debug.Log("<color=yellow>[Shop] Owned</color>");
                 return;
             }
 
             stats.cash -= item.price;
-            item.isOwned = true; // Gán cho Asset
-            UpdatePlayerInventory(item.itemID); // Gán flag cho PlayerStats
+            item.isOwned = true;
+            UpdatePlayerInventory(item.itemID);
             
-            Debug.Log("<color=green>[Shop] Mua thành công: </color>" + item.itemName);
+            Debug.Log("<color=green>[Shop] Successfully purchased: </color>" + item.itemName);
         }
 
         // 3. Cập nhật toàn hệ thống
