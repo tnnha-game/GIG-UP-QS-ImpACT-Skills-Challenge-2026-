@@ -29,7 +29,6 @@ public class PlayerStats : MonoBehaviour
     [Range(0, 100)] public float health = 100f; 
     [Range(0, 100)] public float stress = 0f;   
     
-    // Giữ lại để fix lỗi cho VitalItemUI
     public float currentSleepEnergy;
     public float currentSleepStress;
     public float currentSleepHealth; 
@@ -58,7 +57,7 @@ public class PlayerStats : MonoBehaviour
     public int hoursWorkedToday = 0; 
     public int lockWorkHours = 0; 
     public JobData selectedJob;
-    // --- LOGIC TỰ ĐỘNG KẾT NỐI UI KHI CHUYỂN SCENE ---
+    // --- TỰ ĐỘNG KẾT NỐI UI KHI CHUYỂN SCENE ---
     private void OnEnable() { SceneManager.sceneLoaded += OnSceneLoaded; }
     private void OnDisable() { SceneManager.sceneLoaded -= OnSceneLoaded; }
 
@@ -72,7 +71,7 @@ public class PlayerStats : MonoBehaviour
             // 2. Bỏ qua Canvas Endings (Nếu tên chứa chữ Endings)
             if (c.gameObject.name.Contains("Endings")) continue; 
 
-            // 3. Dùng "FindDeepChild" để tìm dù UI nằm sâu trong nhiều lớp Panel
+            // 3. Dùng "FindDeepChild" để tìm dù UI deep in nhiều Panel
             cashText   = FindDeepChild(c.transform, "CashValueText")?.GetComponent<TextMeshProUGUI>();
             energyText = FindDeepChild(c.transform, "EnergyValueText")?.GetComponent<TextMeshProUGUI>();
             stressText = FindDeepChild(c.transform, "StressValueText")?.GetComponent<TextMeshProUGUI>();
@@ -80,7 +79,6 @@ public class PlayerStats : MonoBehaviour
             skillText  = FindDeepChild(c.transform, "SkillValueText")?.GetComponent<TextMeshProUGUI>();
             dayText    = FindDeepChild(c.transform, "DayText")?.GetComponent<TextMeshProUGUI>();
 
-            // Tương tự cho Slider
             cashSlider   = FindDeepChild(c.transform, "CashSlider")?.GetComponent<Slider>();
             energySlider = FindDeepChild(c.transform, "EnergySlider")?.GetComponent<Slider>();
             healthSlider = FindDeepChild(c.transform, "HealthSlider")?.GetComponent<Slider>();
@@ -88,10 +86,9 @@ public class PlayerStats : MonoBehaviour
             skillSlider  = FindDeepChild(c.transform, "SkillSlider")?.GetComponent<Slider>();
         }
 
-        UpdateUI(); // Cập nhật ngay con số lẻ lên màn hình
+        UpdateUI(); 
     }
 
-    // Sửa tên hàm này thành FindDeepChild cho khớp với lệnh gọi ở trên nhé
     Transform FindDeepChild(Transform parent, string name)
     {
         foreach (Transform child in parent)
@@ -124,7 +121,6 @@ public class PlayerStats : MonoBehaviour
         }
         else 
         { 
-            // Nếu đã có Instance rồi mới ở Scene 2 sẽ tự hủy để không ghi đè dữ liệu
             Destroy(gameObject); 
             return; 
         }
@@ -154,11 +150,11 @@ public class PlayerStats : MonoBehaviour
     {
         if (gameEnded) return;
         
-        // Điều kiện Burnout/Phá sản
+        // Điều kiện Burnout
         if (health <= 0 || stress >= 100) { TriggerEnding("Burnout"); return; }
         if (cash <= 0) { TriggerEnding("Bankrupt"); return; }
 
-        // Logic Work Ban: Cấm khi > 90, chỉ mở lại khi đã nghỉ ngơi xuống < 80
+        // Work Ban: Cấm khi > 90, chỉ mở lại khi đã nghỉ ngơi xuống < 80
         if (stress > 90) 
         {
             isWorkBanned = true;
@@ -168,10 +164,10 @@ public class PlayerStats : MonoBehaviour
             isWorkBanned = false;
         }
         
-        // Cơ chế Ngất xỉu
+        // Collaspe
         if (energy <= 0) { HandlePlayerCollapse(); return; }
 
-        // Kiểm tra Health Audit (Logic gốc của Hà)
+        // Kiểm tra Health Audit
         if (health < 20 && healthAuditMultiplier >= 1.0f) {
             if (EventManager.Instance != null)
                 EventManager.Instance.TriggerEvent("The Health Audit", "Health critical! Recovery -40%. Fee: $500.", 5);
@@ -187,7 +183,7 @@ public class PlayerStats : MonoBehaviour
         Debug.Log("<color=red>[Critical]</color> Alex collapsed from exhaustion!");
 
         health = Mathf.Clamp(health - 20f, 0, 100);
-        energy = 0f; // Tỉnh dậy vẫn kiệt sức để ép dùng Vital
+        energy = 0f;
         stress = Mathf.Clamp(stress + 10f, 0, 100);
         currentDay++; 
         hoursWorkedToday = 0; 
@@ -207,7 +203,7 @@ public class PlayerStats : MonoBehaviour
         lastJobName = jobName;
         if (illegal) isTainted = true;
 
-        // Logic Cyber Breach (Giữ nguyên của Hà)
+        // Logic Cyber Breach 
         bool isTechJob = (jobName.Contains("Developer") || jobName.Contains("Analyst") || jobName.Contains("Digital"));
         if (isTechJob) {
             float breachRisk = hasProLaptop ? 0.02f : 0.15f; 
@@ -265,9 +261,8 @@ public class PlayerStats : MonoBehaviour
 
     private void CheckAndUnlockDegree()
     {
-        float skillBonus = 0f; // Biến tạm để tính lượng Skill thưởng
+        float skillBonus = 0f; 
 
-        // Xác định loại bằng và mức thưởng Skill tương ứng
         if (currentLearningID == "ED01") { 
             hasProfessionalCert = true; 
             skillBonus = 100f; 
@@ -285,16 +280,15 @@ public class PlayerStats : MonoBehaviour
             skillBonus = 200f; 
         }
         
-        // 1. CỘNG SKILL THƯỞNG (ROI từ giáo dục)
+        // 1. CỘNG SKILL THƯỞNG
         skill = Mathf.Clamp(skill + skillBonus, 0, 2000);
         
-        Debug.Log($"<color=cyan>[Education]</color> Chúc mừng! Nhận bằng {currentLearningID}. Thưởng ngay: +{skillBonus} Skill!");
+        Debug.Log($"<color=cyan>[Education]</color> Congratulation! Owned {currentLearningID}. Reward: +{skillBonus} Skill!");
 
         // 2. RESET TRẠNG THÁI (Để khóa nút Study)
         currentLearningID = ""; 
         currentCertProgress = 0f;
         
-        // 3. CẬP NHẬT UI TOÀN CỤC
         UpdateUI(); 
     }
 
@@ -303,7 +297,6 @@ public class PlayerStats : MonoBehaviour
         if (gameEnded) return;
         UpdateHousingData();
         
-        // Hồi phục dựa trên Tier nhà (Logic chia 8 để khớp với 8h ngủ)
         if (currentHousingData != null)
         {
             energy += (currentHousingData.energyEffect / 8f) * healthAuditMultiplier;
