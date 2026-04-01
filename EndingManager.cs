@@ -12,7 +12,7 @@ public class EndingManager : MonoBehaviour
         public string endingName;      
         public GameObject panelObject; 
 
-        [Header("Chỉ kéo các ô chứa thông số biến động")]
+        [Header("Các ô chứa thông số biến động")]
         public TextMeshProUGUI cashText;    
         public TextMeshProUGUI skillText;   
         public TextMeshProUGUI healthText;  
@@ -34,7 +34,7 @@ public class EndingManager : MonoBehaviour
         else Destroy(gameObject);
     }
 
-    // --- HÀM GỌI ĐÍCH DANH ENDING (Dùng khi game over giữa chừng) ---
+    // --- HÀM GỌI ENDING ---
     public void ShowEnding(string type)
     {
         Debug.Log($"<color=cyan>[EndingManager]</color> Kích hoạt Panel: <b>{type}</b>");
@@ -62,7 +62,7 @@ public class EndingManager : MonoBehaviour
         if (PlayerStats.Instance == null) return;
         PlayerStats p = PlayerStats.Instance;
 
-        // --- BƯỚC 0: NGHIỆM THU DỰ ÁN (FINAL SPRINT BONUS) ---
+        // --- BƯỚC 0: FINAL SPRINT BONUS ---
         // Chỉ cộng tiền nếu Alex sống sót (Health > 0 và Stress < 100)
         if (p.isFinalSprintActive && p.health > 0 && p.stress < 100)
         {
@@ -74,7 +74,6 @@ public class EndingManager : MonoBehaviour
         if (p.health <= 0 || p.stress >= 100) { ShowEnding("Burnout"); return; }
     
         // 2. Check Đạo đức (Ưu tiên số 2 - Integrity)
-        // Nếu có vi phạm đạo đức, dù giàu đến đâu cũng vào Greed
         if (p.isTainted) { ShowEnding("Greed"); return; }
 
         // 3. Check Thành tựu (Elite -> Stable -> Bankrupt -> Struggle)
@@ -115,7 +114,7 @@ public class EndingManager : MonoBehaviour
         ui.panelObject.SetActive(true);
         ui.panelObject.transform.SetAsLastSibling(); 
 
-        // Đổ dữ liệu từ PlayerStats vào UI
+        // Lấy dữ liệu từ PlayerStats vào UI
         PlayerStats p = PlayerStats.Instance;
         if (p != null)
         {
