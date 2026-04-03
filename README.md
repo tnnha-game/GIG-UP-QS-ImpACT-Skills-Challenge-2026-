@@ -24,7 +24,7 @@ Wait for the LOADING... screen to finish.
 Use your mouse to interact with the UI elements.
 
 ## 👥 The Team: Vinexus (VinUniversity - Vietnam)
-* **Nguyen Ngan Ha Tran** - Project Lead & UI/UX Designer & Technical Developer (25ha.tnn@vinuni.edu.vn)
+* **Nguyen Ngan Ha Tran** - Project Lead & UI/UX Designer & Technical Developer (25ha.tnn@vinuni.edu.vn or tnnha.work@gmail.com)
 * **Trung Dung Do** - Researcher & Storyteller (25dung.dt@vinuni.edu.vn)
 * **Ngoc Khanh Dinh** - Researcher & Storyteller (25khanh.dn@vinuni.edu.vn)
 * **Ba Ky Truong** - Researcher & Technical Developer (25ky.tb@vinuni.edu.vn)
