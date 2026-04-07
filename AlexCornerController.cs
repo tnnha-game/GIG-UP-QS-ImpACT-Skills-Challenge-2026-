@@ -23,7 +23,6 @@ public class AlexCornerController : MonoBehaviour
 
     private void Start()
     {
-        // Vừa vào game tự động hiện ảnh theo nhà đang ở (mặc định H01)
         RefreshUI();
     }
 
@@ -55,7 +54,7 @@ public class AlexCornerController : MonoBehaviour
                 break;
         }
 
-        // 3. Hiển thị lên khung tranh
+        // 3. Hiển thị lên frame
         if (selectedSprite != null)
         {
             displayImage.sprite = selectedSprite;
