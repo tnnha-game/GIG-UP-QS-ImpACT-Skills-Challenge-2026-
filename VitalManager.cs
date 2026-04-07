@@ -137,7 +137,7 @@ public class VitalManager : MonoBehaviour
         PlayerStats.Instance.UpdateUI();
         if (TimePanelManager.Instance != null) TimePanelManager.Instance.UpdateClockUI();
 
-        // Âm thanh khi mua thành công (Nếu bạn có SoundManager)
+        // Âm thanh khi mua thành công
         if (SoundManager.Instance != null) SoundManager.Instance.PlayWorkStudyVital();
 
         // Vẽ lại bảng Vital để khóa nút món đồ vừa mua (nếu là nhà)
