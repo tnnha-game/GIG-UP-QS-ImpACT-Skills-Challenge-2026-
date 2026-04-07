@@ -6,13 +6,13 @@ public class ClosePanelController : MonoBehaviour
     [Tooltip("Kéo TẤT CẢ các Panel (Shop, Job, Vital...) vào danh sách này")]
     public GameObject[] allPanels; 
 
-    [Tooltip("Kéo cái HUD/Màn hình chính vào đây để hiện lại")]
+    [Tooltip("Kéo main scene vào đây để hiện lại")]
     public GameObject mainHUD;
 
     /// </summary>
     public void CloseEverything()
     {
-        // 1. Quét qua danh sách và tắt mọi bảng đang mở
+        // 1. Scan qua danh sách và tắt mọi bảng đang mở
         if (allPanels != null && allPanels.Length > 0)
         {
             foreach (GameObject panel in allPanels)
