@@ -30,7 +30,7 @@ public class SoundBridge : MonoBehaviour
     
     public void PlaySelectJob() => SoundManager.Instance?.PlayApplyStudy();
 
-    // --- 3. CÁC HÀM SỰ KIỆN ---
+    // --- 3. CÁC HÀM EVENTS ---
     public void PlayEventGood() => SoundManager.Instance?.PlayEventGood();
     public void PlayEventBad() => SoundManager.Instance?.PlayEventBad();
     public void PlayEventWarning() => SoundManager.Instance?.PlayEventWarning();
@@ -45,7 +45,7 @@ public class SoundBridge : MonoBehaviour
         }
     }
 
-    // --- 4. CÁC HÀM KẾT THÚC ---
+    // --- 4. CÁC HÀM ENDINGS ---
     public void PlayEndingElite() => SoundManager.Instance?.PlayEndingStinger("Elite");
     public void PlayEndingStable() => SoundManager.Instance?.PlayEndingStinger("Stable");
     public void PlayEndingOther() => SoundManager.Instance?.PlayEndingStinger("Other");
